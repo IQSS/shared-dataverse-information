@@ -11,4 +11,5 @@ class DataverseInfoValidationForm(ModelForm):
     
     class Meta:
         model = DataverseInfo
-        exclude = ['map_layer','created', 'modified']
+        exclude = ['created', 'modified']
+        #exclude = ['map_layer','created', 'modified']
