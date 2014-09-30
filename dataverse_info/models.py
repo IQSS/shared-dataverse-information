@@ -1,7 +1,6 @@
 from django.db import models
 
 
-        
 class DataverseInfo(models.Model):
     """
     If a map layer is created using a dataverse file, this objects contains Dataverse specific information regarding that file.
@@ -38,7 +37,7 @@ class DataverseInfo(models.Model):
     # dataset version info
     #-------------------------
     dataset_version_id = models.IntegerField(default=-1, help_text='id in database')  # for API calls.
-    dataset_semantic_version = models.CharField(max_length=25, help_text='example: 1.2, 2.3, etc', blank=True)  # for API calls.
+    dataset_semantic_version = models.CharField(max_length=25, help_text='example: "DRAFT",  "1.2", "2.3", etc', blank=True)  # for API calls.
     dataset_name = models.CharField(max_length=255, blank=True)  # for display
     dataset_citation = models.CharField(max_length=255)
     dataset_description = models.TextField(blank=True) 
