@@ -1,5 +1,8 @@
 from django.db import models
 
+
+        
+        
 class DataverseInfo(models.Model):
     """
     If a map layer is created using a dataverse file, this objects contains Dataverse specific information regarding that file.
@@ -14,6 +17,7 @@ class DataverseInfo(models.Model):
     return_to_dataverse_url = models.URLField(max_length=255, blank=True)
     
     # dataverse info
+    dataverse_installation_name = models.CharField(max_length=255, default='Harvard Dataverse', help_text='Harvard Dataverse, Odum Institute Dataverse, etc')
     dataverse_name = models.CharField(max_length=255, db_index=True)
     dataverse_description = models.TextField(blank=True) 
     
@@ -24,7 +28,7 @@ class DataverseInfo(models.Model):
     dataset_id = models.IntegerField(default=-1, help_text='id in database')  # for API calls.  
     dataset_version_id = models.IntegerField(default=-1, help_text='id in database')  # for API calls.
 
-    dataset_semantic_version = models.CharField(max_length=25, help_text='example: 1.2, 2.3, etc')  # for API calls.
+    dataset_semantic_version = models.CharField(max_length=25, help_text='example: 1.2, 2.3, etc', blank=True)  # for API calls.
     doi = models.CharField('DOI', max_length=255, blank=True)
     citation = models.CharField(max_length=255, blank=True)
 
@@ -35,6 +39,7 @@ class DataverseInfo(models.Model):
     # timestamps
     created = models.DateTimeField(auto_now_add=True) 
     modified = models.DateTimeField(auto_now=True)
+    
     
     
     def __unicode__(self):
