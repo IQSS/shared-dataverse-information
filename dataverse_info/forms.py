@@ -1,7 +1,10 @@
 from django.core.exceptions import ValidationError
+from datetime import datetime
 
 from django import forms
 from dataverse_info.models import DataverseInfo
+
+DATETIME_PAT_STR = '%Y-%m-%d %H:%M:%S'
 
 # Create the form class.
 class DataverseInfoValidationForm(forms.ModelForm):

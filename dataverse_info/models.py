@@ -51,7 +51,7 @@ class DataverseInfo(models.Model):
     datafile_expected_md5_checksum = models.CharField(max_length=100)  
     datafile_filesize = models.IntegerField(help_text='in bytes')
     datafile_content_type = models.CharField(max_length=255)
-    datafile_create_datetime = models.DateTimeField(blank=True, null=True)
+    datafile_create_datetime = models.DateTimeField()#blank=True, null=True)
             
     #-------------------------
     # timestamps
