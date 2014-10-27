@@ -6,6 +6,14 @@ from dataverse_info.models import DataverseInfo
 
 DATETIME_PAT_STR = '%Y-%m-%d %H:%M:%S'
 
+"""
+from dataverse_info.models import DataverseInfo
+from django import forms
+class DataverseInfoValidationForm(forms.ModelForm):
+    class Meta:
+        fields = ('dv_user_id',)
+        model = DataverseInfo
+"""
 # Create the form class.
 class DataverseInfoValidationForm(forms.ModelForm):
     """Used to validate incoming data from GeoConnect
@@ -21,3 +29,24 @@ class DataverseInfoValidationForm(forms.ModelForm):
         exclude = ['created', 'modified']
         #exclude = ['map_layer','created', 'modified']
 
+
+class CheckForExistingLayerFormBasic(forms.ModelForm):
+    """
+    Used for the API that retrieves a WorldMap Layer based on a specific:
+        - Dataverse user id
+        - Dataverse file id
+    """
+    class Meta:
+        model = DataverseInfo
+        fields = ('dv_user_id', 'datafile_id')
+
+
+
+class CheckForDataverseUserLayersFormBasic(forms.ModelForm):
+    """
+    Used for the API that retrieves a Dataverse user's WorldMap Layers
+        - input dv_user_id
+    """
+    class Meta:
+        model = DataverseInfo
+        fields = ('dv_user_id',)
