@@ -41,6 +41,7 @@ class DataverseInfo(models.Model):
     dataset_name = models.CharField(max_length=255, blank=True)  # for display
     dataset_citation = models.CharField(max_length=255)
     dataset_description = models.TextField(blank=True) 
+    dataset_is_public = models.BooleanField()
 
     #-------------------------
     # datafile info
