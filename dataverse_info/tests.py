@@ -5,11 +5,14 @@ when you run "manage.py test".
 
 Replace this with more appropriate tests for your application.
 """
+from os.path import abspath, dirname, isfile, join
 from django.test import TestCase
 from dataverse_info.models import DataverseInfo
 from dataverse_info.forms import DataverseInfoValidationForm
 
 import unittest
+import json
+
 def msg(m): print(m)
 def dashes(): msg('-' * 40)
 def msgt(m): dashes(); msg(m); dashes()
@@ -17,43 +20,15 @@ def msgt(m): dashes(); msg(m); dashes()
 class ValidationFormTest(TestCase):
     
     def setUp(self): 
-       
-        self.test_data = {\
-                     #
-                     # Datafile
-                     #
-                     u'datafile_content_type': u'application/zipped-shapefile',\
-                     u'datafile_create_datetime': u'2014-09-30 10:00:54.544',\
-                     u'datafile_download_url': u'http://localhost:8080/api/access/datafile/1388',\
-                     u'datafile_expected_md5_checksum': u'e16c3b5c43781343ad6dfa180f176d7c',\
-                     u'datafile_filesize': 225975,\
-                     u'datafile_id': 1388,\
-                     u'datafile_label': u'social_disorder_in_boston_yqh.zip',\
-                     #
-                     # Dataset                     
-                     #
-                     u'dataset_citation': u'Privileged, Pete, 2014, "social disorder", http://dx.doi.org/10.5072/FK2/1383,  Root Dataverse,  DRAFT VERSION ',\
-                     u'dataset_description': u'',\
-                     u'dataset_id': 1383,\
-                     u'dataset_name': u'social disorder',\
-                     u'dataset_semantic_version': u'DRAFT',\
-                     u'dataset_version_id': 362,\
-                     #
-                     # Dataverse
-                     #
-                     u'dataverse_description': u'The root dataverse.',\
-                     u'dataverse_id': 1,\
-                     u'dataverse_installation_name': u'Harvard Dataverse',\
-                     u'dataverse_name': u'Root',\
-                     #
-                     # Dataverse user
-                     #
-                     u'dv_user_email': u'pete@malinator.com',\
-                     u'dv_user_id': 1,\
-                     u'dv_username': u'Pete Privileged',\
-                     u'return_to_dataverse_url': u'http://localhost:8080/dataset.xhtml?id=1383&versionId362'\
-                    }
-                    
+        test_data_file = join( dirname(abspath(__file__))\
+                                , 'fixtures'\
+                                , 'dataverse_info_test_fixtures_01.json'\
+                            )
+        if not isfile(test_data_file):
+            raise ValueError('File not found: %s' % test_data_file)
+            
+        self.test_data = json.loads(open(test_data_file, 'r').read())
+                       
                     
     def test_form_validation1(self):
     
