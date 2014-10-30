@@ -25,8 +25,15 @@ class EmbedLayerFormTest(TestCase):
         settings.WORLDMAP_TOKEN_FOR_DATAVERSE = 'fake-token'
         self.test_data = dict(dv_user_id=321\
                     , datafile_id=960\
+                    , layer_name='geonode:boston_commute'
                     )
-        self.expected_params = {'datafile_id': 960, 'dv_user_id': 321, 'SIGNATURE_KEY': '0f2246e1b7d0355f40b257dbe10d16afcdd2d6ece92d54d0d8843402'}
+        self.expected_clean_data = self.test_data
+        
+        self.expected_params = {'datafile_id': 960\
+                    , 'dv_user_id': 321\
+                    , 'SIGNATURE_KEY': '0f2246e1b7d0355f40b257dbe10d16afcdd2d6ece92d54d0d8843402'\
+                    , 'layer_name' : 'geonode:boston_commute'
+                    }
         #f1 = EmbedLayerForm(self.test_data)
                     
     def test_workflow_01(self):
@@ -49,7 +56,7 @@ class EmbedLayerFormTest(TestCase):
         self.assertEqual(f1.is_signature_valid(valid_signature), True)
         
         msg('(e) cleaned data')
-        self.assertEqual(f1.cleaned_data, {'datafile_id': 960, 'dv_user_id': 321})
+        self.assertEqual(f1.cleaned_data, self.expected_clean_data)
 
         msg('(f) cleaned data with signature key')
         self.assertEqual(f1.get_api_params_with_signature(), self.expected_params)
@@ -85,5 +92,5 @@ class EmbedLayerFormTest(TestCase):
         self.assertEqual(f2.is_signature_valid(f1.get_api_signature()), True)
 
         msg('(g) cleaned data.')
-        self.assertEqual(f2.cleaned_data, {'datafile_id': 960, 'dv_user_id': 321})
+        self.assertEqual(f2.cleaned_data, self.expected_clean_data)
         
