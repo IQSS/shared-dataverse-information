@@ -9,18 +9,18 @@ from os.path import abspath, dirname, isfile, join
 from django.test import TestCase
 from dataverse_info.models import DataverseInfo
 from dataverse_info.forms import DataverseInfoValidationForm
+from dataverse_info.forms_embed_layer import EmbedLayerForm
+
+from dataverse_info.tests.msg_util import *
 
 import unittest
 import json
 
-def msg(m): print(m)
-def dashes(): msg('-' * 40)
-def msgt(m): dashes(); msg(m); dashes()
 
 class ValidationFormTest(TestCase):
     
     def setUp(self): 
-        test_data_file = join( dirname(abspath(__file__))\
+        test_data_file = join( dirname(dirname(abspath(__file__)))\
                                 , 'fixtures'\
                                 , 'dataverse_info_test_fixtures_01.json'\
                             )
@@ -86,7 +86,7 @@ class ValidationFormTest(TestCase):
         self.assertEqual(cleaned_data.has_key('comment'), False)
         self.assertEqual(cleaned_data.has_key('token_check'), False)
         
-        msg('Yes, strips out the extra fields')
+        msg('Yes, strips out the extra fields?')
         #msg(cleaned_data)
         
         #dvinfo_obj = validation_form.save(commit=False)

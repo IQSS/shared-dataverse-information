@@ -1,20 +1,15 @@
-from django.core.exceptions import ValidationError
 from datetime import datetime
 
+from django.core.exceptions import ValidationError
 from django import forms
+
 from dataverse_info.models import DataverseInfo
+
+from dataverse_info.forms_api_validate import APIValidateHelperForm
 
 DATETIME_PAT_STR = '%Y-%m-%d %H:%M:%S'
 
-"""
-from dataverse_info.models import DataverseInfo
-from django import forms
-class DataverseInfoValidationForm(forms.ModelForm):
-    class Meta:
-        fields = ('dv_user_id',)
-        model = DataverseInfo
-"""
-# Create the form class.
+
 class DataverseInfoValidationForm(forms.ModelForm):
     """Used to validate incoming data from GeoConnect
     Excludes the map_layer attribute and create/modtimes
