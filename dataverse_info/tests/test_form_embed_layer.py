@@ -28,20 +28,20 @@ class EmbedLayerFormTest(TestCase):
         settings.WORLDMAP_TOKEN_FOR_DATAVERSE = 'fake-token'
         self.test_data = dict(dv_user_id=321\
                     , datafile_id=960\
-                    , layer_name='geonode:boston_commute'
+                    , layer='geonode:boston_commute'
                     )
         self.expected_clean_data = self.test_data
         
         self.expected_params = {'datafile_id': 960\
                     , 'dv_user_id': 321\
                     , 'SIGNATURE_KEY': '0f2246e1b7d0355f40b257dbe10d16afcdd2d6ece92d54d0d8843402'\
-                    , 'layer_name' : 'geonode:boston_commute'
+                    , 'layer' : 'geonode:boston_commute'
                     }
                     
         self.expected_params_bad_signature = {'datafile_id': 960\
                     , 'dv_user_id': 321\
                     , 'SIGNATURE_KEY': 'this-is-not-a-very-good-signature'\
-                    , 'layer_name' : 'geonode:boston_commute'
+                    , 'layer' : 'geonode:boston_commute'
                     }
         #f1 = EmbedLayerForm(self.test_data)
                     
