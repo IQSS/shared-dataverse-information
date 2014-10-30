@@ -2,7 +2,7 @@ import hashlib
 
 from django.core.exceptions import ValidationError
 from django import forms
-
+from django.http import HttpRequest
 from django.conf import settings
 
 from dataverse_info.models import DataverseInfo
@@ -58,15 +58,18 @@ class APIValidateHelperForm(forms.ModelForm):
         return hashlib.sha224(val_str).hexdigest()
         
         
-    def is_signature_valid(self, signature_value):
+    def is_signature_valid_check_val(self, signature_value):
         """
         After the form is found to be valid
         """
         assert signature_value is not None, "signature_value cannot be None"
-        assert len(signature_value) > 50, "signature_value must be at least 50 chars in length"
+        
         if hasattr(self, 'cleaned_data') is False:
             raise ValueError('Form is invalid.  cleaned_data is not available')
 
+        if len(signature_value) < 50:
+            return False
+            
         if self.get_api_signature() == signature_value:
             return True
         return False
@@ -79,7 +82,26 @@ class APIValidateHelperForm(forms.ModelForm):
         params = self.cleaned_data
         params[SIGNATURE_KEY] = self.get_api_signature()
         return params
+    
+    
+    def is_signature_valid_check_request(self, request_obj):
+        if not type(request_obj) is HttpRequest:
+            raise AssertionError('request_obj must be a HttpRequest object')
+    
+        if not request_obj.POST:
+            return False
+            
+        if not request_obj.POST.has_key(SIGNATURE_KEY):
+            return False
+            
+        key_val = request_obj.POST.get(SIGNATURE_KEY, None)
+        if key_val is None:
+            return False
         
+        return self.is_signature_valid_check_val(key_val)
+        
+        
+    
     
     class Meta:
         abstract = True
