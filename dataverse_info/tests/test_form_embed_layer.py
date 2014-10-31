@@ -167,5 +167,28 @@ class EmbedLayerFormTest(TestCase):
         msg('(f) cleaned data.')
         self.assertEqual(f1.cleaned_data, self.expected_clean_data)
 
-        
-        
+"""        
+# to run from GeoConnect
+import requests
+
+from dataverse_info.forms_embed_layer import EmbedLayerForm
+from dataverse_info.forms_api_validate import SIGNATURE_KEY
+from dataverse_info.tests.msg_util import *
+from django.conf import settings
+
+data = dict(dv_user_id=1\
+            , datafile_id=85\
+            , layer='social_disorder_in_boston_yqh_zip_vas'
+            )
+f1 = EmbedLayerForm(data)
+params = None
+if f1.is_valid():
+    params = f1.get_api_params_with_signature()
+
+
+params
+url = 'http://127.0.0.1:8000/dataverse-layer/view-embedded/'
+r = requests.post(url, data=params)
+r.status_code
+r.text
+"""

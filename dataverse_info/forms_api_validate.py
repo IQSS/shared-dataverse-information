@@ -1,5 +1,7 @@
 import hashlib
 
+from django.core.handlers import wsgi
+
 from django.core.exceptions import ValidationError
 from django import forms
 from django.http import HttpRequest
@@ -96,10 +98,10 @@ class APIValidateHelperForm(forms.ModelForm):
         return params
     
     
-    def is_signature_valid_check_post(self, request_obj):
-        if not type(request_obj) is HttpRequest:
-            raise AssertionError('request_obj must be a HttpRequest object')
-    
+    def is_signature_valid_check_post(self, request_obj):    
+        if not type(request_obj) in (HttpRequest, wsgi.WSGIRequest):
+            raise AssertionError('request_obj must be a HttpRequest or WSGIRequest object')
+
         if not request_obj.POST:
             return False
             
@@ -116,9 +118,9 @@ class APIValidateHelperForm(forms.ModelForm):
         """
         Wouldn't actually use, need proper private/public keys
         """
-        if not type(request_obj) is HttpRequest:
-            raise AssertionError('request_obj must be a HttpRequest object')
-    
+        if not type(request_obj) in (HttpRequest, wsgi.WSGIRequest):
+            raise AssertionError('request_obj must be a HttpRequest or WSGIRequest object')
+            
         if not request_obj.GET:
             return False
             
