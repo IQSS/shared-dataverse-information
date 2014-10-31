@@ -73,7 +73,19 @@ class APIValidateHelperForm(forms.ModelForm):
         if self.get_api_signature() == signature_value:
             return True
         return False
+    
+    def do_attributes_match(self, **attribute_dict):
+        assert type(attribute_dict) is dict, "attribute_dict must be type dict"
+        if hasattr(self, 'cleaned_data') is False:
+            raise AssertionError('Form is invalid.  cleaned_data is not available')
+    
+        for key in self.get_validation_field_names():
+            val = attribute_dict.get(key, None)
+            if val is None or not val == self.cleaned_data.get(key, None):
+                return False
         
+        return True
+
         
     def get_api_params_with_signature(self):
         if hasattr(self, 'cleaned_data') is False:
@@ -84,7 +96,7 @@ class APIValidateHelperForm(forms.ModelForm):
         return params
     
     
-    def is_signature_valid_check_request(self, request_obj):
+    def is_signature_valid_check_post(self, request_obj):
         if not type(request_obj) is HttpRequest:
             raise AssertionError('request_obj must be a HttpRequest object')
     
@@ -95,6 +107,25 @@ class APIValidateHelperForm(forms.ModelForm):
             return False
             
         key_val = request_obj.POST.get(SIGNATURE_KEY, None)
+        if key_val is None:
+            return False
+        
+        return self.is_signature_valid_check_val(key_val)
+   
+    def is_signature_valid_check_get(self, request_obj):
+        """
+        Wouldn't actually use, need proper private/public keys
+        """
+        if not type(request_obj) is HttpRequest:
+            raise AssertionError('request_obj must be a HttpRequest object')
+    
+        if not request_obj.GET:
+            return False
+            
+        if not request_obj.GET.has_key(SIGNATURE_KEY):
+            return False
+            
+        key_val = request_obj.GET.get(SIGNATURE_KEY, None)
         if key_val is None:
             return False
         

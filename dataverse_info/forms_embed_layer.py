@@ -18,7 +18,7 @@ class EmbedLayerForm(APIValidateHelperForm):
         - Dataverse file id
     """
     layer = forms.CharField(label='layer name')
-    
+                
     def get_validation_field_names(self):
         return ( 'dv_user_id',  'datafile_id',)
 

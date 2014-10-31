@@ -105,7 +105,7 @@ class EmbedLayerFormTest(TestCase):
         self.assertEqual(f2.cleaned_data, self.expected_clean_data)
         
     def test_workflow_03(self):
-        msgt('(3) Try with HttpRequest')
+        msgt('(3) Try with HttpRequest - POST')
         
         msg('(a) Try form with HttpRequest object')
         h = HttpRequest()
@@ -115,25 +115,57 @@ class EmbedLayerFormTest(TestCase):
         self.assertEqual(f1.is_valid(), True)
         
         msg('(b) Try signature validity check - break assertion by sending dict, not HttpRequest')
-        self.assertRaises(AssertionError, f1.is_signature_valid_check_request, h.POST)
+        self.assertRaises(AssertionError, f1.is_signature_valid_check_post, h.POST)
             
             
         msg('(c) Try signature check with invalid data--no signature key')
         h_bad_data = HttpRequest()
         h_bad_data.POST = self.test_data 
-        self.assertEqual(f1.is_signature_valid_check_request(h_bad_data), False)
+        self.assertEqual(f1.is_signature_valid_check_post(h_bad_data), False)
 
         msg('(d) Try signature check with invalid data--bad signature key')
         h_bad_data2 = HttpRequest()
         h_bad_data2.POST = self.expected_params_bad_signature
-        self.assertEqual(f1.is_signature_valid_check_request(h_bad_data2), False)
+        self.assertEqual(f1.is_signature_valid_check_post(h_bad_data2), False)
 
         msg('(e) Try signature check with valid data')
-        self.assertEqual(f1.is_signature_valid_check_request(h), True)
+        self.assertEqual(f1.is_signature_valid_check_post(h), True)
         
         msg('(f) cleaned data.')
         self.assertEqual(f1.cleaned_data, self.expected_clean_data)
         
-        
+
+
+
+    def test_workflow_04(self):
+        msgt('(4) Try with HttpRequest - GET')
+
+        msg('(a) Try form with HttpRequest object')
+        h = HttpRequest()
+        h.GET = self.expected_params
+
+        f1 = EmbedLayerForm(h.GET)
+        self.assertEqual(f1.is_valid(), True)
+
+        msg('(b) Try signature validity check - break assertion by sending dict, not HttpRequest')
+        self.assertRaises(AssertionError, f1.is_signature_valid_check_get, h.GET)
+
+
+        msg('(c) Try signature check with invalid data--no signature key')
+        h_bad_data = HttpRequest()
+        h_bad_data.GET = self.test_data 
+        self.assertEqual(f1.is_signature_valid_check_get(h_bad_data), False)
+
+        msg('(d) Try signature check with invalid data--bad signature key')
+        h_bad_data2 = HttpRequest()
+        h_bad_data2.GET = self.expected_params_bad_signature
+        self.assertEqual(f1.is_signature_valid_check_get(h_bad_data2), False)
+
+        msg('(e) Try signature check with valid data')
+        self.assertEqual(f1.is_signature_valid_check_get(h), True)
+
+        msg('(f) cleaned data.')
+        self.assertEqual(f1.cleaned_data, self.expected_clean_data)
+
         
         
