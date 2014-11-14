@@ -20,11 +20,12 @@ class DataverseInfoAdmin(admin.ModelAdmin):
                     , 'dataverse_id', 'dataset_id', 'datafile_id'\
                     , 'datafile_filesize', 'datafile_content_type', 'datafile_expected_md5_checksum'\
                     , 'datafile_create_datetime'\
-                    , 'dataset_is_public'\
+                    #, 'dataset_is_public'\
                     ]
     fieldsets = [
          ('DataFile Info', {
-                  'fields': (('datafile_label', 'datafile_id',  )\
+                  'fields': ( 'dataset_is_public'\
+                  , ('datafile_label', 'datafile_id',  )\
                   , ('datafile_filesize', 'datafile_content_type')\
                   , ('datafile_create_datetime', 'datafile_expected_md5_checksum',)\
                   )
@@ -43,7 +44,7 @@ class DataverseInfoAdmin(admin.ModelAdmin):
                          )
            }),
            ('Dataset Info', {
-               'fields': ('dataset_id', 'dataset_is_public')
+               'fields': ('dataset_id',)
            }),
            ('Dataset Version Info', {
                'fields': (('dataset_version_id', 'dataset_semantic_version',), 'dataset_name', 'dataset_citation', 'dataset_description')
