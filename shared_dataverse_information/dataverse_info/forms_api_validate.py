@@ -7,7 +7,7 @@ from django import forms
 from django.http import HttpRequest
 from django.conf import settings
 
-from dataverse_info.models import DataverseInfo
+from .models import DataverseInfo
 
 SIGNATURE_KEY = 'SIGNATURE_KEY'
 

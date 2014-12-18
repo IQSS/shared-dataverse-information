@@ -1,4 +1,4 @@
-from layer_classification.models import ClassificationMethod, ColorRamp
+from .models import ClassificationMethod, ColorRamp
 
 from django.contrib import admin
 

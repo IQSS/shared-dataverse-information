@@ -2,7 +2,7 @@
 from django.core.exceptions import ValidationError
 from django import forms
 
-from map_layer_metadata.models import MapLayerMetadata, KEY_MAPPING_FOR_DATAVERSE_API, DATAVERSE_REQUIRED_KEYS
+from .models import MapLayerMetadata, KEY_MAPPING_FOR_DATAVERSE_API, DATAVERSE_REQUIRED_KEYS
 
 
 

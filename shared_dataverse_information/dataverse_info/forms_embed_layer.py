@@ -3,9 +3,9 @@ from datetime import datetime
 from django.core.exceptions import ValidationError
 from django import forms
 
-from dataverse_info.models import DataverseInfo
+from .models import DataverseInfo
 
-from dataverse_info.forms_api_validate import APIValidateHelperForm
+from .forms_api_validate import APIValidateHelperForm
 
 DATETIME_PAT_STR = '%Y-%m-%d %H:%M:%S'
 

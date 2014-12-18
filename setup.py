@@ -76,7 +76,7 @@ setup(
     # https://packaging.python.org/en/latest/technical.html#install-requires-vs-requirements-files
     #install_requires=['peppercorn'],
     install_requires=[
-       'Django>=1.6,<1.7',
+       'Django>=1.4,<1.7',
        'requests==2.3.0',
     ],
     

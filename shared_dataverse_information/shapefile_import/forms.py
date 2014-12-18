@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django import forms
 
-from shapefile_import.models import ShapefileImportData
+from .models import ShapefileImportData
 
 
 class ShapefileImportDataForm(forms.ModelForm):

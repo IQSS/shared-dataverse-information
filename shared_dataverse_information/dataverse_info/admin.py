@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib import admin
 
-from dataverse_info.models import DataverseInfo
-from dataverse_info.forms import DataverseInfoValidationForm
+from .models import DataverseInfo
+from .forms import DataverseInfoValidationForm
 
 
 class DataverseInfoAdmin(admin.ModelAdmin):

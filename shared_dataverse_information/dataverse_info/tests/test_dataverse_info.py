@@ -7,9 +7,9 @@ Replace this with more appropriate tests for your application.
 """
 from os.path import abspath, dirname, isfile, join
 from django.test import TestCase
-from dataverse_info.models import DataverseInfo
-from dataverse_info.forms import DataverseInfoValidationForm
-from dataverse_info.forms_embed_layer import EmbedLayerForm
+from .models import DataverseInfo
+from .forms import DataverseInfoValidationForm
+from .forms_embed_layer import EmbedLayerForm
 
 from dataverse_info.tests.msg_util import *
 
