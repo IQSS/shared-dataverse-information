@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.conf import settings
 
 KEY_MAPPING_FOR_DATAVERSE_API = { 'worldmap_username' : 'worldmapUsername'\
                                     , 'layer_name' : 'layerName'\
