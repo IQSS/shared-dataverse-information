@@ -35,7 +35,9 @@ class MapLayerMetadataValidationForm(forms.ModelForm):
         #   
         if session_token_value is None:
             session_token_value = self.cleaned_data.get('dv_session_token')
-                        
+        else:
+            self.cleaned_data['dv_session_token'] = session_token_value
+            
         assert session_token_value is not None, "A session token is required"
         assert session_token_value is not '', "A session token is required"
         print('dataversekeys: %s' % set(DATAVERSE_REQUIRED_KEYS))
