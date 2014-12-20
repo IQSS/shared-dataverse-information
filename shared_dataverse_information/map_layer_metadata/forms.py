@@ -28,24 +28,15 @@ class MapLayerMetadataValidationForm(forms.ModelForm):
 
         assert self.cleaned_data is not None, "cleaned_data not found.  Call and verify that form is_valid()"
         
-        # If the session_token_value is not specified, 
-        #   check for one in cleaned_data
-        #
-        # For the model/form, the session_token_value is optional
+        # If the session_token_value is specified, use that one
+        #   Note: For form validation, the session_token_value is optional
         #   
-        if session_token_value is None:
-            session_token_value = self.cleaned_data.get('dv_session_token')
-        else:
+        if session_token_value is not None:
             self.cleaned_data['dv_session_token'] = session_token_value
-            
-        assert session_token_value is not None, "A session token is required"
-        assert session_token_value is not '', "A session token is required"
-        print('dataversekeys: %s' % set(DATAVERSE_REQUIRED_KEYS))
-        print('form keys: %s' %self.cleaned_data.keys())
-
-        missing_required_keys = list(set(KEY_MAPPING_FOR_DATAVERSE_API.keys()) - set(self.cleaned_data.keys()))
-
-        assert len(missing_required_keys) == 0, "Not all required keys found in form.  Required keys not found: %s" % missing_required_keys
+        
+        # A session token IS required for this formatting
+        if not self.cleaned_data.get('dv_session_token'):
+            raise ValueError("A session token is required for updating Dataverse Metadata")        
 
         formatted_dict = {}
         for k, v in self.cleaned_data.items():
@@ -57,6 +48,9 @@ class MapLayerMetadataValidationForm(forms.ModelForm):
             formatted_dict[worldmap_key] = v
 
         return formatted_dict
+
+#missing_required_keys = list(set(KEY_MAPPING_FOR_DATAVERSE_API.keys()) - set(self.cleaned_data.keys()))
+#assert len(missing_required_keys) == 0, "Not all required keys found in form.  Required keys not found: %s" % missing_required_keys
 
 
 
