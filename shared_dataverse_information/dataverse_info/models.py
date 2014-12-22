@@ -46,7 +46,7 @@ class DataverseInfo(models.Model):
     #-------------------------
     # datafile info
     #-------------------------
-    datafile_id = models.IntegerField(default=-1, help_text='id in database')  # for API calls.  
+    datafile_id = models.IntegerField(default=-1, help_text='id in database', db_index=True)  # for API calls.  
     datafile_label = models.CharField(max_length=255, help_text='original file name')  
     
     datafile_expected_md5_checksum = models.CharField(max_length=100)  
