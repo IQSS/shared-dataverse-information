@@ -2,7 +2,6 @@ import hashlib
 
 from django.core.handlers import wsgi
 
-from django.core.exceptions import ValidationError
 from django import forms
 from django.http import HttpRequest
 from django.conf import settings

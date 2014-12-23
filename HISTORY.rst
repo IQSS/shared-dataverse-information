@@ -8,5 +8,15 @@ Release History
 
 **Updates**
 
-- Add map_image_link field to MapLayerMetadata object
+- Add fields to MapLayerMetadata object
+    - llbbox - lat/long bounding box
+    - map_image_link - link to a png image
+    - download_links - other download links for a WorldMap layer
+    - download_links - dict of links to export in different formats:
+        - [u'zip', u'gml', u'tiff', u'KML', u'jpg', u'json', u'pdf', u'csv', u'xls', u'png']
+        - .zip is shapefile, json is geojson, tiff is geotiff
+- Remove field from MapLayerMetadata object
+    - datafile_id - not needed.  Field is part of the token.
+        - Source data at WorldMap only needs a Layer object to produce MapLayerMetadata
+- Share MapLayerMetadata object and related form code in Geoconnect and WorldMap
 - added index to DataverseInfo.datafile_id

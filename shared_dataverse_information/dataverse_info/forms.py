@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from django.core.exceptions import ValidationError
 from django import forms
 
 from .models import DataverseInfo

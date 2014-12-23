@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from django.core.exceptions import ValidationError
 from django import forms
 
 from .models import DataverseInfo
@@ -32,7 +31,7 @@ class EmbedLayerForm(APIValidateHelperForm):
         try:
             return layer.split(':')[-1]
         except:
-            raise ValidationError('The layer name is required')
+            raise forms.ValidationError('The layer name is required')
 
             
     class Meta:

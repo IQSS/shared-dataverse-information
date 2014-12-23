@@ -1,9 +1,7 @@
 
-from django.core.exceptions import ValidationError
 from django import forms
 
-from .models import MapLayerMetadata, KEY_MAPPING_FOR_DATAVERSE_API, DATAVERSE_REQUIRED_KEYS
-
+from .models import MapLayerMetadata, KEY_MAPPING_FOR_DATAVERSE_API
 
 
 class MapLayerMetadataValidationForm(forms.ModelForm):
@@ -17,6 +15,12 @@ class MapLayerMetadataValidationForm(forms.ModelForm):
                # , 'name': forms.TextInput(attrs={'size':20})
                 }
 
+class GeoconnectToDataverseMapLayerMetadataValidationForm(forms.ModelForm):
+
+    class Meta:
+        model = MapLayerMetadata
+        exclude = ('download_links', 'attribute_info')
+
     def format_data_for_dataverse_api(self, session_token_value=None):
         """
         Format the key names to make them compatible with the dataverse API
@@ -24,7 +28,7 @@ class MapLayerMetadataValidationForm(forms.ModelForm):
         :param session_token_value: if not specified, use the form's dv_session_token value
         :return: dict with formatted parameters
         """
-        global KEY_MAPPING_FOR_DATAVERSE_API, DATAVERSE_REQUIRED_KEYS
+        global KEY_MAPPING_FOR_DATAVERSE_API
 
         assert self.cleaned_data is not None, "cleaned_data not found.  Call and verify that form is_valid()"
         
@@ -53,6 +57,12 @@ class MapLayerMetadataValidationForm(forms.ModelForm):
 #assert len(missing_required_keys) == 0, "Not all required keys found in form.  Required keys not found: %s" % missing_required_keys
 
 
-
+class WorldMapToGeoconnectMapLayerMetadataValidationForm(forms.ModelForm):
+    """
+    Used to validate/format
+    """
+    class Meta:
+        model = MapLayerMetadata
+        exclude = ('dv_session_token',)
 
 
