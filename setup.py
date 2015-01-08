@@ -68,6 +68,7 @@ setup(
         'shared_dataverse_information.map_layer_metadata',
         'shared_dataverse_information.shapefile_import',
         'shared_dataverse_information.shared_form_util',
+        'shared_dataverse_information.worldmap_api_helper',
     ],
 
     # List run-time dependencies here.  These will be installed by pip when your
