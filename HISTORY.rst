@@ -3,6 +3,13 @@
 Release History
 ---------------
 
+0.2.5 (2015-01-08)
+++++++++++++++++++
+
+**Updates**
+- Add worldmap_api_helper.url_helper
+    - Code moved out of geoconnect
+
 0.2.4 (2014-12-22)
 ++++++++++++++++++
 
