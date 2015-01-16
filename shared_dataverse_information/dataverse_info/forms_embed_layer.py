@@ -14,13 +14,16 @@ class EmbedLayerForm(APIValidateHelperForm):
     """Used to validate incoming data from GeoConnect
 
     Used for the API that retrieves a WorldMap Layer based on a specific:
-        - Dataverse user id
         - Dataverse file id
+
+        xxx- Dataverse user id
+
     """
     layer = forms.CharField(label='layer name')
                 
     def get_validation_field_names(self):
-        return ( 'dv_user_id',  'datafile_id',)
+        return ( 'datafile_id',)
+        #return ( 'dv_user_id',  'datafile_id',)
 
     def clean_layer(self):
         if hasattr(self, 'cleaned_data') is False:
@@ -36,6 +39,7 @@ class EmbedLayerForm(APIValidateHelperForm):
             
     class Meta:
         model = DataverseInfo
-        fields = ('dv_user_id', 'datafile_id')
+        fields = ( 'datafile_id',)
+        #fields = ('dv_user_id', 'datafile_id')
 
     

@@ -37,6 +37,9 @@ GET_LAYER_INFO_BY_USER_AND_FILE_API_PATH = format_worldmap_api_url('/dataverse-l
 #
 GET_LAYER_INFO_BY_USER_API_PATH = format_worldmap_api_url('/dataverse-layer/get-dataverse-user-layers/')
 
+# Delete dataverse-created map layer
+DELETE_LAYER_API_PATH = format_worldmap_api_url('/dataverse/delete-map-layer/')
+
 
 #
 #
