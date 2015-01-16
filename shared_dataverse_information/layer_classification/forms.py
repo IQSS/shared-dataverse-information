@@ -243,3 +243,4 @@ if __name__=='__main__':
                             , attribute_choices=[ (1, 'one'), (2, 'two')]\
                         )
     print f
+'''
