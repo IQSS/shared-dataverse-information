@@ -8,6 +8,7 @@ if __name__=='__main__':
     sys.path.append(DJANGO_ROOT)
     os.environ['DJANGO_SETTINGS_MODULE'] = 'geoconnect.settings.local'
 '''
+'''
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.conf import settings
@@ -236,8 +237,8 @@ class ClassifyLayerForm(forms.Form):
         endColor =forms.CharField(max_length=7, required=False)      # irregular naming convention used to match the outgoing url string
         """
 
-
-
+'''
+'''
 if __name__=='__main__':
     f = ClassifyLayerForm(initial={'layer_name': 'income_abadfe'}\
                             , attribute_choices=[ (1, 'one'), (2, 'two')]\

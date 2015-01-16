@@ -28,9 +28,16 @@ class GeoconnectToDataverseDeleteMapLayerMetadataForm(forms.ModelForm):
         fields = ('dv_session_token', )
 
     def format_for_dataverse_api(self):
+        """
+        Format the key names to make them compatible with the dataverse API
+
+        :return: dict with formatted parameters
+        """    
+        global KEY_MAPPING_FOR_DATAVERSE_API
+
         assert self.cleaned_data is not None, "cleaned_data not found.  Call and verify that form is_valid()"
         
-        return dict(dv_session_token=self.cleaned_data['dv_session_token'])
+        return { KEY_MAPPING_FOR_DATAVERSE_API['dv_session_token'] : self.cleaned_data['dv_session_token'] }
         
 
 class GeoconnectToDataverseMapLayerMetadataValidationForm(forms.ModelForm):
