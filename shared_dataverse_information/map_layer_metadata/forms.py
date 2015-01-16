@@ -15,6 +15,24 @@ class MapLayerMetadataValidationForm(forms.ModelForm):
                # , 'name': forms.TextInput(attrs={'size':20})
                 }
 
+
+class GeoconnectToDataverseDeleteMapLayerMetadataForm(forms.ModelForm):
+    """
+    Format values to delete map layer metadata from the Dataverse API
+    
+    This form ony has the field "dv_session_token"
+    This form produces a dict with { token key name : token value }
+    """
+    class Meta:
+        model = MapLayerMetadata
+        fields = ('dv_session_token', )
+
+    def format_for_dataverse_api(self):
+        assert self.cleaned_data is not None, "cleaned_data not found.  Call and verify that form is_valid()"
+        
+        return dict(dv_session_token=self.cleaned_data['dv_session_token'])
+        
+
 class GeoconnectToDataverseMapLayerMetadataValidationForm(forms.ModelForm):
 
     class Meta:
