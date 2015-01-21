@@ -1,10 +1,26 @@
 from django.db import models
 from django.conf import settings
 
-
+# ------------------------------------------------------
+# Set DATAVERSE_TOKEN_KEYNAME
+# ------------------------------------------------------
 dataverse_token_name = 'no-token'
 if hasattr(settings, 'DATAVERSE_TOKEN_KEYNAME'):
     dataverse_token_name = settings.DATAVERSE_TOKEN_KEYNAME
+assert dataverse_token_name is not None, "dataverse_token_name cannot be None"
+
+# ------------------------------------------------------
+# Set WORLDMAP_SERVER_URL and WORLDMAP_SERVER_URL_BASE
+# ------------------------------------------------------
+WORLDMAP_SERVER_URL = 'http://worldmap.harvard.edu'
+if hasattr(settings, 'WORLDMAP_SERVER_URL'):
+    WORLDMAP_SERVER_URL = settings.WORLDMAP_SERVER_URL
+assert WORLDMAP_SERVER_URL is not None, "WORLDMAP_SERVER_URL cannot be None"
+
+# Used for forcing https
+WORLDMAP_SERVER_URL_BASE = WORLDMAP_SERVER_URL.split('//')[-1].lower()  # e.g. worldmap.harvard.edu
+
+
 
 KEY_MAPPING_FOR_DATAVERSE_API = { 'worldmap_username' : 'worldmapUsername'\
                                     , 'layer_name' : 'layerName'\
@@ -37,7 +53,7 @@ class MapLayerMetadata(models.Model):
     dv_session_token = models.CharField(max_length=255, blank=True)
 
 
-
+        
     def __unicode__(self):
         return '%s (user: %s )' % (self.layer_name, self.worldmap_username)
         

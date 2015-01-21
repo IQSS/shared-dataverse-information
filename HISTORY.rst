@@ -3,6 +3,12 @@
 Release History
 ---------------
 
+0.2.6 (2015-01-21)
+
+**Updates**
+- Updated WorldMapToGeoconnectMapLayerMetadataValidationForm
+    - Set embed_map_link to https for dev and prod--so they will work in an iframe
+
 0.2.5 (2015-01-08)
 ++++++++++++++++++
 

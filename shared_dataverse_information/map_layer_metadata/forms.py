@@ -1,13 +1,12 @@
+import re
 
 from django import forms
 
-from .models import MapLayerMetadata, KEY_MAPPING_FOR_DATAVERSE_API
+from .models import MapLayerMetadata, WORLDMAP_SERVER_URL_BASE, KEY_MAPPING_FOR_DATAVERSE_API
 
 
 class MapLayerMetadataValidationForm(forms.ModelForm):
-    """
-    Used to validate/format
-    """
+
     class Meta:
         model = MapLayerMetadata
         widgets = {  'dataverse_description': forms.Textarea(attrs={'rows': 2, 'cols':70})\
@@ -90,4 +89,48 @@ class WorldMapToGeoconnectMapLayerMetadataValidationForm(forms.ModelForm):
         model = MapLayerMetadata
         exclude = ('dv_session_token',)
 
+    """
+    Used to validate/format
+    """
+    def make_https_link_for_dev_prod(self, lnk):
+        """
+        Ensure dev and prod links are https -- they will be iframed on an https server
+        """
+        assert lnk is not None, "lnk cannot be None"
+
+        lnk_lower = lnk.lower()
+        
+        # Don't force https for local host
+        if lnk_lower.find('localhost') > -1 or lnk_lower.find('127.0.0.1') > -1 : 
+            return lnk
+            
+        # Is this the worldmap server url?
+        if lnk_lower.find(WORLDMAP_SERVER_URL_BASE) > -1:
+            # Is https in use?
+            if lnk_lower.find('https') == -1:     # No!        
+                # No https, so make it https
+                pattern = re.compile("http", re.IGNORECASE)
+                lnk = pattern.sub("https", lnk)
+
+        return lnk
+
+    def clean_embed_map_link(self):
+        """
+        Make this https, if necessary
+        """
+        lnk = self.cleaned_data.get('embed_map_link', None)
+        if lnk is None:
+            raise forms.ValidationError(_('The embed_map_link must be specified'), code='invalid')
+
+        return self.make_https_link_for_dev_prod(lnk)
+
+
+    """
+    def clean_map_image_link(self):
+        lnk = self.cleaned_data.get('map_image_link', None)
+        if lnk is None:
+            raise forms.ValidationError(_('The map_image_link must be specified'), code='invalid')
+
+        return self.make_https_link_for_dev_prod(lnk)
+    """
 
