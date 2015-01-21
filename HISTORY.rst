@@ -4,6 +4,7 @@ Release History
 ---------------
 
 0.2.6 (2015-01-21)
+++++++++++++++++++
 
 **Updates**
 - Updated WorldMapToGeoconnectMapLayerMetadataValidationForm
