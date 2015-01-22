@@ -3,6 +3,14 @@
 Release History
 ---------------
 
+0.2.7 (2015-01-21)
+++++++++++++++++++
+
+**Updates**
+- Updated WorldMapToGeoconnectMapLayerMetadataValidationForm
+    - Used clean_layer_link to point to a new map instead of the standalone layer
+
+
 0.2.6 (2015-01-21)
 ++++++++++++++++++
 

@@ -124,6 +124,23 @@ class WorldMapToGeoconnectMapLayerMetadataValidationForm(forms.ModelForm):
 
         return self.make_https_link_for_dev_prod(lnk)
 
+    def clean_layer_link(self):
+        """
+        Instead of going to standalone layer -- go to the layer as a new map
+
+        example:
+        layer link: http://worldmap.harvard.edu/data/geonode:housing_characteristics_o2q
+        new map link: http://worldmap.harvard.edu/maps/new/?layer=geonode:housing_characteristics_o2q
+        """
+        lnk = self.cleaned_data.get('layer_link', None)
+        if lnk is None:
+            raise forms.ValidationError(_('The layer_link must be specified'), code='invalid')
+        
+        # Replace 1st occurrence of '/data/' with '/maps/new/?layer='
+        lnk = lnk.replace('/data/', '/maps/new/?layer=', 1)
+        
+        return lnk
+        
 
     """
     def clean_map_image_link(self):
