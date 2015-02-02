@@ -10,10 +10,10 @@ from os.path import abspath, dirname, isfile, join
 from django.test import TestCase
 from django.http import HttpRequest
 
-from dataverse_info.models import DataverseInfo
+from shared_dataverse_information.dataverse_info.models import DataverseInfo
 #from dataverse_info.forms import DataverseInfoValidationForm
-from dataverse_info.forms_embed_layer import EmbedLayerForm
-from dataverse_info.tests.msg_util import *
+from shared_dataverse_information.dataverse_info.forms_existing_layer import CheckForExistingLayerForm
+from shared_dataverse_information.dataverse_info.tests.msg_util import *
 
 from django.conf import settings
 
@@ -26,56 +26,56 @@ class EmbedLayerFormTest(TestCase):
     
     def setUp(self):         
         settings.WORLDMAP_TOKEN_FOR_DATAVERSE = 'fake-token'
-        self.test_data = dict(dv_user_id=321\
-                    , datafile_id=960\
-                    , layer='geonode:boston_commute'
+        self.test_data = dict(datafile_id=960\
+                    , dataverse_installation_name='HU dataverse!'\
+                    #, layer='geonode:boston_commute'
                     )
         self.expected_clean_data = self.test_data
         
         self.expected_params = {'datafile_id': 960\
-                    , 'dv_user_id': 321\
-                    , 'SIGNATURE_KEY': '0f2246e1b7d0355f40b257dbe10d16afcdd2d6ece92d54d0d8843402'\
-                    , 'layer' : 'geonode:boston_commute'
+                    , 'dataverse_installation_name': u'HU dataverse!'\
+                    , 'SIGNATURE_KEY': '0068e42806f42ed64ca1ba3e9f3f1549c9bef3fcd84dacaf79ea18e7'\
+                    #, 'layer' : 'geonode:boston_commute'
                     }
                     
         self.expected_params_bad_signature = {'datafile_id': 960\
-                    , 'dv_user_id': 321\
+                    , 'dataverse_installation_name': u'HU dataverse!'\
                     , 'SIGNATURE_KEY': 'this-is-not-a-very-good-signature'\
-                    , 'layer' : 'geonode:boston_commute'
+                    #, 'layer' : 'geonode:boston_commute'
                     }
         #f1 = EmbedLayerForm(self.test_data)
                     
     def test_workflow_01(self):
     
         msgt('(1) geoconnect, prepare initial data')
-        f1 = EmbedLayerForm(self.test_data)
+        f1 = CheckForExistingLayerForm(self.test_data)
 
         msg('(a) Is data valid')
         self.assertEqual(f1.is_valid(), True)
-        
+
         msg('(b) check validation field names')
         #msg(f.get_validation_field_names())
-        self.assertEqual(f1.get_validation_field_names(), ('dv_user_id', 'datafile_id'))
+        self.assertEqual(f1.get_validation_field_names(), ('datafile_id', 'dataverse_installation_name'))
 
         msg('(c) check signature generated with fake key')
         valid_signature = f1.get_api_signature()
-        self.assertEqual(valid_signature, '0f2246e1b7d0355f40b257dbe10d16afcdd2d6ece92d54d0d8843402')
+        self.assertEqual(valid_signature, '0068e42806f42ed64ca1ba3e9f3f1549c9bef3fcd84dacaf79ea18e7')
+
 
         msg('(d) check valid signature against data used to generate it')
         self.assertEqual(f1.is_signature_valid_check_val(valid_signature), True)
-        
+
         msg('(e) cleaned data')
         self.assertEqual(f1.cleaned_data, self.expected_clean_data)
 
         msg('(f) cleaned data with signature key')
         self.assertEqual(f1.get_api_params_with_signature(), self.expected_params)
         
-    #@unittest.skip("skipping")
     def test_workflow_02(self):
     
         msgt('(2) Generate params for API call')
         
-        f1 = EmbedLayerForm(self.test_data)
+        f1 = CheckForExistingLayerForm(self.test_data)
         self.assertEqual(f1.is_valid(), True)
         
 
@@ -83,9 +83,9 @@ class EmbedLayerFormTest(TestCase):
         self.assertEqual(f1.get_api_params_with_signature(), self.expected_params)
 
         msg('(b) Validate params in fresh form')
-        f2 = EmbedLayerForm(self.expected_params)
+        f2 = CheckForExistingLayerForm(self.expected_params)
         self.assertEqual(f2.is_valid(), True)
-        
+
         msg('(c) Check signature validity.  Signature length too short')
         self.assertEqual(f2.is_signature_valid_check_val('signature - not long - enough')\
                         , False)
@@ -111,7 +111,7 @@ class EmbedLayerFormTest(TestCase):
         h = HttpRequest()
         h.POST = self.expected_params
         
-        f1 = EmbedLayerForm(h.POST)
+        f1 = CheckForExistingLayerForm(h.POST)
         self.assertEqual(f1.is_valid(), True)
         
         msg('(b) Try signature validity check - break assertion by sending dict, not HttpRequest')
@@ -135,8 +135,7 @@ class EmbedLayerFormTest(TestCase):
         self.assertEqual(f1.cleaned_data, self.expected_clean_data)
         
 
-
-
+    @unittest.skip("skipping")
     def test_workflow_04(self):
         msgt('(4) Try with HttpRequest - GET')
 
@@ -144,7 +143,7 @@ class EmbedLayerFormTest(TestCase):
         h = HttpRequest()
         h.GET = self.expected_params
 
-        f1 = EmbedLayerForm(h.GET)
+        f1 = CheckForExistingLayerForm(h.GET)
         self.assertEqual(f1.is_valid(), True)
 
         msg('(b) Try signature validity check - break assertion by sending dict, not HttpRequest')
@@ -171,24 +170,19 @@ class EmbedLayerFormTest(TestCase):
 # to run from GeoConnect
 import requests
 
-from dataverse_info.forms_embed_layer import EmbedLayerForm
-from dataverse_info.forms_api_validate import SIGNATURE_KEY
-from dataverse_info.tests.msg_util import *
+from shared_dataverse_information.dataverse_info.forms_existing_layer import CheckForExistingLayerForm
+from shared_dataverse_information.dataverse_info.forms_api_validate import SIGNATURE_KEY
+from shared_dataverse_information.dataverse_info.tests.msg_util import *
 from django.conf import settings
 
-data = dict(dv_user_id=1\
-            , datafile_id=85\
-            , layer='social_disorder_in_boston_yqh_zip_vas'
+data = dict( datafile_id=85\
+            , dataverse_installation_name='harvard dataverse'
             )
-f1 = EmbedLayerForm(data)
+f1 = CheckForExistingLayerForm(data)
 params = None
 if f1.is_valid():
     params = f1.get_api_params_with_signature()
 
 
 params
-url = 'http://127.0.0.1:8000/dataverse-layer/view-embedded/'
-r = requests.post(url, data=params)
-r.status_code
-r.text
 """

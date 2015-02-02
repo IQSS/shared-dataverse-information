@@ -4,7 +4,7 @@ from django import forms
 
 from .models import DataverseInfo
 
-from .forms_api_validate import APIValidateHelperForm
+#from shared_dataverse_information.worldmap_api_helper.forms_api_validate import APIValidateHelperForm
 
 DATETIME_PAT_STR = '%Y-%m-%d %H:%M:%S'
 

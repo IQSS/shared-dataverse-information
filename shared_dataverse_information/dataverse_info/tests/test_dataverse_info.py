@@ -7,11 +7,11 @@ Replace this with more appropriate tests for your application.
 """
 from os.path import abspath, dirname, isfile, join
 from django.test import TestCase
-from .models import DataverseInfo
-from .forms import DataverseInfoValidationForm
-from .forms_embed_layer import EmbedLayerForm
+from shared_dataverse_information.dataverse_info.models import DataverseInfo
+from shared_dataverse_information.dataverse_info.forms import DataverseInfoValidationForm
+from shared_dataverse_information.dataverse_info.forms_existing_layer import CheckForExistingLayerForm
 
-from dataverse_info.tests.msg_util import *
+from shared_dataverse_information.dataverse_info.tests.msg_util import *
 
 import unittest
 import json
