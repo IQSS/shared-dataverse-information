@@ -81,7 +81,6 @@ class APIValidateHelperForm(forms.ModelForm):
                 raise ValueError('Value for key "%s" cannot be None' % key)
             val_list.append('%s' % val)
             
-        print 'token used: %s' %  settings.WORLDMAP_TOKEN_FOR_DATAVERSE
         val_str = '|'.join(val_list + [settings.WORLDMAP_TOKEN_FOR_DATAVERSE])
         
         

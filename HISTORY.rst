@@ -3,6 +3,17 @@
 Release History
 ---------------
 
+0.2.8 (2015-02-02)
+++++++++++++++++++
+
+**Updates**
+- Beginning use of APIValidateHelperForm for API calls
+    - Updated to ShapefileImportDataForm to inherit from APIValidateHelperForm
+    - Updated Delete function to use APIValidateHelperForm
+- Remove unused EmbedLayerForm
+
+
+
 0.2.7 (2015-01-21)
 ++++++++++++++++++
 
