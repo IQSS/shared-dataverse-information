@@ -8,7 +8,7 @@ if __name__=='__main__':
     sys.path.append(DJANGO_ROOT)
     os.environ['DJANGO_SETTINGS_MODULE'] = 'geoconnect.settings.local'
 '''
-'''
+
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.conf import settings
@@ -52,29 +52,38 @@ class ClassifyLayerForm(forms.Form):
     # 
     
     def __init__(self, *args, **kwargs):
-        """Initialize using a WorldMapLayerInfo object
-        
-        """
-        
-        worldmap_layerinfo = kwargs.pop('worldmap_layerinfo', None)
-        
-        if worldmap_layerinfo is None:
-            raise Exception('ClassifyLayerForm does not have a worldmap_layerinfo object')
+        """Initialize with a layer name and attribute information
+            (a) layer_name - Name of layer to classify.  Example: "geonode:social_disorder_shapefile_zip_fif"
             
+            (b) raw_attribute_info - list containing attributes associated with dataset.
+                    Each attribute is a dict.  Example: [ {"type": "double", "display_name": "Area", "name": "AREA"}, ... (etc) ... ]
+        """
+        layer_name = kwargs.pop('layer_name', None)
+        raw_attribute_info = kwargs.pop('raw_attribute_info', None)
+        assert layer_name is not None, "layer_name is required in kwargs"
+        assert isinstance(raw_attribute_info, list) or isinstance(raw_attribute_info, tuple)\
+                , "raw_attribute_info must be a list or tuple"
+        
+        # Initialize form
         super(ClassifyLayerForm, self).__init__(*args, **kwargs)
 
-        raw_attribute_info = worldmap_layerinfo.get_attribute_info()
+        # Initialize the "layer_name" field
+        self.fields['layer_name'].initial = layer_name
+
+        # Format attribute information
         attribute_choices = ClassifyLayerForm.format_attribute_choices_for_form(raw_attribute_info)
-        
+        # Initialize "attribute" field with the formatted attribute information 
         self.fields['attribute'] = forms.ChoiceField(choices=attribute_choices, widget=forms.Select(attrs=FIELD_CSS_ATTRS))
-        self.fields['layer_name'].initial = worldmap_layerinfo.layer_name
         
         
     @staticmethod
     def format_attribute_choices_for_form(attr_info):
         """
-        {"display_name": "Objectid", "type": "long", "name": "OBJECTID"}, 
+        example of item in 'raw list'
+            {"display_name": "Objectid", "type": "long", "name": "OBJECTID"}, 
 
+        formatted item:
+            ('long|OBJECTID', 'Objectid')
         """        
         if attr_info is None or len(attr_info) == 0: 
             return [('-1', 'Information not found')]
@@ -237,7 +246,7 @@ class ClassifyLayerForm(forms.Form):
         endColor =forms.CharField(max_length=7, required=False)      # irregular naming convention used to match the outgoing url string
         """
 
-'''
+
 '''
 if __name__=='__main__':
     f = ClassifyLayerForm(initial={'layer_name': 'income_abadfe'}\

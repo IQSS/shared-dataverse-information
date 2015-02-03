@@ -3,6 +3,14 @@
 Release History
 ---------------
 
+
+0.2.9 (2015-02-03)
+++++++++++++++++++
+
+**Updates**
+- Update ClassifyLayerForm so it may be used for Geoconnect
+
+
 0.2.8 (2015-02-02)
 ++++++++++++++++++
 
