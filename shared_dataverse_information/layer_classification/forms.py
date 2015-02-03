@@ -156,10 +156,8 @@ class ClassifyLayerForm(forms.Form):
         if layer_name is None:
             return None
             
-
         return CLASSIFY_LAYER_API_PATH
 
-        #return '%s/dvn/classify-layer/%s/' % (settings.WORLDMAP_SERVER_URL, layer_name)
         
 
     def clean_attribute(self):

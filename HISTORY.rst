@@ -9,7 +9,7 @@ Release History
 
 **Updates**
 - Update ClassifyLayerForm so it may be used for Geoconnect
-
+- ClassifyRequestDataForm form created to check classification API calls
 
 0.2.8 (2015-02-02)
 ++++++++++++++++++

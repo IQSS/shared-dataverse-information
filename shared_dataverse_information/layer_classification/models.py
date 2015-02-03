@@ -52,3 +52,25 @@ class ColorRamp(models.Model):
 
     class Meta:
         ordering = ('sort_order', 'display_name')
+        
+        
+class ClassifyRequestData(models.Model):
+    """
+    Abstract class.  Main use is to create a form using APIValidateHelperForm
+    """
+    layer_name = models.CharField(max_length=255)
+    attribute = models.CharField(max_length=255)
+
+    intervals = models.IntegerField()
+    method = models.CharField(max_length=255)
+
+    ramp = models.CharField(max_length=255)
+    startColor = models.CharField(max_length=30)
+    endColor = models.CharField(max_length=30)
+
+    reverse = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
+        
+        
