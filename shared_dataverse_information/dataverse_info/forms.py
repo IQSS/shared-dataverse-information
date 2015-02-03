@@ -21,16 +21,4 @@ class DataverseInfoValidationForm(forms.ModelForm):
                # , 'name': forms.TextInput(attrs={'size':20}) 
                 }
         exclude = ['created', 'modified']
-        #exclude = ['map_layer','created', 'modified']
 
-
-
-
-class CheckForDataverseUserLayersFormBasic(forms.ModelForm):
-    """
-    Used for the API that retrieves a Dataverse user's WorldMap Layers
-        - input dv_user_id
-    """
-    class Meta:
-        model = DataverseInfo
-        fields = ('dv_user_id',)

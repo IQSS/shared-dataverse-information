@@ -34,16 +34,9 @@ CLASSIFY_LAYER_API_PATH = format_worldmap_api_url('/dataverse/classify-layer/')
 GET_LAYER_INFO_BY_DATAVERSE_INSTALLATION_AND_FILE_API_PATH = format_worldmap_api_url('/dataverse-layer/get-existing-layer-info/')
 
 
-
 # check for existing layer
 #
 CHECK_FOR_EXISTING_LAYER_API_PATH = format_worldmap_api_url('/dataverse/check-for-existing-layer/')
-
-
-
-# Get existing layers by Dataverse user id
-#
-GET_LAYER_INFO_BY_USER_API_PATH = format_worldmap_api_url('/dataverse-layer/get-dataverse-user-layers/')
 
 
 
