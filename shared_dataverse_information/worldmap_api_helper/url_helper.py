@@ -18,9 +18,10 @@ def format_worldmap_api_url(url_path):
 #
 ADD_SHAPEFILE_API_PATH = format_worldmap_api_url('/dataverse/import-shapefile/')
 
-# check for existing layer
+
+# Delete dataverse-created map layer
 #
-CHECK_FOR_EXISTING_LAYER_API_PATH = format_worldmap_api_url('/dataverse/check-for-existing-layer/')
+DELETE_LAYER_API_PATH = format_worldmap_api_url('/dataverse/delete-map-layer/')
 
 
 # classify layer API
@@ -28,18 +29,22 @@ CHECK_FOR_EXISTING_LAYER_API_PATH = format_worldmap_api_url('/dataverse/check-fo
 CLASSIFY_LAYER_API_PATH = format_worldmap_api_url('/dataverse/classify-layer/')
 
 
-# Get existing layer by Dataverse user id and Dataverse file id
+# Get existing layer by Dataverse installation name and Dataverse file id
 #
-GET_LAYER_INFO_BY_USER_AND_FILE_API_PATH = format_worldmap_api_url('/dataverse-layer/get-existing-layer-info/')
+GET_LAYER_INFO_BY_DATAVERSE_INSTALLATION_AND_FILE_API_PATH = format_worldmap_api_url('/dataverse-layer/get-existing-layer-info/')
+
+
+
+# check for existing layer
+#
+CHECK_FOR_EXISTING_LAYER_API_PATH = format_worldmap_api_url('/dataverse/check-for-existing-layer/')
+
 
 
 # Get existing layers by Dataverse user id
 #
 GET_LAYER_INFO_BY_USER_API_PATH = format_worldmap_api_url('/dataverse-layer/get-dataverse-user-layers/')
 
-# Delete dataverse-created map layer
-#
-DELETE_LAYER_API_PATH = format_worldmap_api_url('/dataverse/delete-map-layer/')
 
 
 #

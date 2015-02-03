@@ -24,16 +24,6 @@ class DataverseInfoValidationForm(forms.ModelForm):
         #exclude = ['map_layer','created', 'modified']
 
 
-class CheckForExistingLayerFormBasic(forms.ModelForm):
-    """
-    Used for the API that retrieves a WorldMap Layer based on a specific:
-        - Dataverse user id
-        - Dataverse file id
-    """
-    class Meta:
-        model = DataverseInfo
-        fields = ('dv_user_id', 'datafile_id')
-
 
 
 class CheckForDataverseUserLayersFormBasic(forms.ModelForm):
