@@ -1,4 +1,5 @@
 import hashlib
+import time
 
 from django.core.handlers import wsgi
 
@@ -85,7 +86,9 @@ class APIValidateHelperForm(forms.ModelForm):
         
         
         return hashlib.sha224(val_str).hexdigest()
-        
+    
+    def get_timestamp_string(self):
+        return str(time.time())
         
     def is_signature_valid_check_val(self, signature_value):
         """

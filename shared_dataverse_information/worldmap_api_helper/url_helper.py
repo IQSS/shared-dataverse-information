@@ -29,6 +29,12 @@ DELETE_LAYER_API_PATH = format_worldmap_api_url('/dataverse/delete-map-layer/')
 CLASSIFY_LAYER_API_PATH = format_worldmap_api_url('/dataverse/classify-layer/')
 
 
+# classify layer API
+#
+GET_CLASSIFY_ATTRIBUTES_API_PATH = format_worldmap_api_url('/dataverse/get-classify-attributes/')
+
+
+
 # Get existing layer by Dataverse installation name and Dataverse file id
 #
 GET_LAYER_INFO_BY_DATAVERSE_INSTALLATION_AND_FILE_API_PATH = format_worldmap_api_url('/dataverse-layer/get-existing-layer-info/')

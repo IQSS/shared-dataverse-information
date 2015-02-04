@@ -16,6 +16,7 @@ from django.conf import settings
 from shared_dataverse_information.layer_classification.models import ClassificationMethod, ColorRamp
 
 from shared_dataverse_information.worldmap_api_helper.url_helper import CLASSIFY_LAYER_API_PATH
+from shared_dataverse_information.layer_classification.classify_format_helper import format_layer_name_for_classification
 
 CLASSIFY_METHOD_CHOICES = [ (x.id, x.display_name) for x in ClassificationMethod.objects.filter(active=True) ]
 CLASSIFY_STRING_METHOD_CHOICES = [ (x.id, x.display_name) for x in ClassificationMethod.objects.filter(active=True, is_string_usable=True) ]
@@ -26,6 +27,8 @@ ATTRIBUTE_VALUE_DELIMITER = '|'
 FIELD_CSS_ATTRS = {'class':'form-control input-sm'} 
 
 print 'CLASSIFY_METHOD_CHOICES', CLASSIFY_METHOD_CHOICES
+
+
 
 class ClassifyLayerForm(forms.Form):
     """
@@ -180,6 +183,7 @@ class ClassifyLayerForm(forms.Form):
             raise forms.ValidationError(_('The number of intervals must be less than that!'), code='invalid')
 
         return num_bins
+            
         
     def clean_layer_name(self):
         """
@@ -189,8 +193,9 @@ class ClassifyLayerForm(forms.Form):
         layer_name = self.cleaned_data.get('layer_name', None)
         if layer_name is None:
             raise forms.ValidationError(_('The layer name must be specified'), code='invalid')
-            
-        return layer_name.split(':')[-1]
+        
+        return format_layer_name_for_classification(layer_name)
+
     
     def get_params_for_display(self):
         if not self.is_valid():
