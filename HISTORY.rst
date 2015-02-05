@@ -3,6 +3,13 @@
 Release History
 ---------------
 
+0.3.0 (2015-02-05)
+++++++++++++++++++
+
+**Updates**
+- Update ClassifyRequestDataForm and LayerAttributeRequestForm to include datafile_id and dataverse_installation_name
+
+
 
 0.2.9 (2015-02-04)
 ++++++++++++++++++

@@ -9,8 +9,7 @@ from shared_dataverse_information.layer_classification.classify_format_helper im
 class ClassifyRequestDataForm(APIValidateHelperForm):
 
     def get_validation_field_names(self):
-        return ('layer_name', 'attribute', 'method', )
-
+        return ('layer_name', 'attribute', 'method', 'datafile_id', 'dataverse_installation_name')
             
     def clean_layer_name(self):
         layer_name = self.cleaned_data.get('layer_name', None)
@@ -27,7 +26,7 @@ class ClassifyRequestDataForm(APIValidateHelperForm):
 class LayerAttributeRequestForm(APIValidateHelperForm):
 
     def get_validation_field_names(self):
-        return ('layer_name', )
+        return ('layer_name', 'datafile_id', 'dataverse_installation_name')
 
     def clean_layer_name(self):
         layer_name = self.cleaned_data.get('layer_name', None)
@@ -38,4 +37,4 @@ class LayerAttributeRequestForm(APIValidateHelperForm):
 
     class Meta:
         model = ClassifyRequestData
-        fields =  ('layer_name', )
+        fields =  ('layer_name', 'datafile_id', 'dataverse_installation_name' )

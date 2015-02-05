@@ -58,6 +58,9 @@ class ClassifyRequestData(models.Model):
     """
     Abstract class.  Main use is to create a form using APIValidateHelperForm
     """
+    datafile_id = models.IntegerField()
+    dataverse_installation_name = models.CharField(max_length=255)
+
     layer_name = models.CharField(max_length=255)
     attribute = models.CharField(max_length=255)
 
