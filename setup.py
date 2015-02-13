@@ -14,7 +14,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/development.html#single-sourcing-the-version
-    version='0.3.0',
+    version='0.3.1',
 
     description='Shared code for the Dataverse and WorldMap connection.',
     long_description=long_description,
@@ -77,7 +77,7 @@ setup(
     # https://packaging.python.org/en/latest/technical.html#install-requires-vs-requirements-files
     #install_requires=['peppercorn'],
     install_requires=[
-       'Django>=1.4,<1.7',
+       #'Django>=1.4,<1.7',
        'requests==2.3.0',
     ],
     

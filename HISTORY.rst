@@ -3,6 +3,10 @@
 Release History
 ---------------
 
+0.3.1 (2015-02-05)
+++++++++++++++++++
+- Removed django dependency for older worldmap install (Django 1.4) where django shouldn't be pulled down via pip
+
 0.3.0 (2015-02-05)
 ++++++++++++++++++
 
