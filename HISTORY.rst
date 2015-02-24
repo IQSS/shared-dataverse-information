@@ -3,9 +3,13 @@
 Release History
 ---------------
 
-0.3.1 (2015-02-24)
+0.3.2 (2015-02-24)
 ++++++++++++++++++
 Changed map_image_link from a URLField to a TextField.  Ran into error when the value exceeded 255 chars.
+
+0.3.1 (2015-02-13)
+++++++++++++++++++
+Django req. was dropped--but this change was then reverted.
 
 0.3.0 (2015-02-05)
 ++++++++++++++++++

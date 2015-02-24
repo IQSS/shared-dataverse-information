@@ -3,7 +3,7 @@ import re
 from django import forms
 
 from .models import MapLayerMetadata, WORLDMAP_SERVER_URL_BASE, KEY_MAPPING_FOR_DATAVERSE_API
-
+from .form_helper import format_to_len255
 
 class MapLayerMetadataValidationForm(forms.ModelForm):
 
@@ -113,6 +113,13 @@ class WorldMapToGeoconnectMapLayerMetadataValidationForm(forms.ModelForm):
                 lnk = pattern.sub("https", lnk)
 
         return lnk
+
+    def clean_map_image_link(self):
+        lnk = self.cleaned_data.get('map_image_link', None)
+        if lnk is None:
+            raise forms.ValidationError(_('The map_image_link must be specified'), code='invalid')
+
+        return format_to_len255(lnk)
 
     def clean_embed_map_link(self):
         """
