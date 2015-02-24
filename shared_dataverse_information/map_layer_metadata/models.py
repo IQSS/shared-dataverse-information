@@ -49,7 +49,7 @@ class MapLayerMetadata(models.Model):
     llbbox = models.CharField('Lat/Lng bounding box', max_length=255)
     attribute_info = models.TextField('attribute names|types|display names')
     download_links = models.TextField('download data links', blank=True)
-    map_image_link = models.URLField(max_length=255)
+    map_image_link = models.TextField('map image link--sometimes exceeds 255 chars')
     dv_session_token = models.CharField(max_length=255, blank=True)
 
 
