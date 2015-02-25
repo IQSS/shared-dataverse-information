@@ -7,6 +7,13 @@ from .form_helper import format_to_len255
 
 class MapLayerMetadataValidationForm(forms.ModelForm):
 
+    def clean_map_image_link(self):
+        lnk = self.cleaned_data.get('map_image_link', None)
+        if lnk is None:
+            raise forms.ValidationError(_('The map_image_link must be specified'), code='invalid')
+
+        return format_to_len255(lnk)
+
     class Meta:
         model = MapLayerMetadata
         widgets = {  'dataverse_description': forms.Textarea(attrs={'rows': 2, 'cols':70})\
@@ -44,6 +51,13 @@ class GeoconnectToDataverseMapLayerMetadataValidationForm(forms.ModelForm):
     class Meta:
         model = MapLayerMetadata
         exclude = ('download_links', 'attribute_info')
+
+    def clean_map_image_link(self):
+        lnk = self.cleaned_data.get('map_image_link', None)
+        if lnk is None:
+            raise forms.ValidationError(_('The map_image_link must be specified'), code='invalid')
+
+        return format_to_len255(lnk)
 
     def format_data_for_dataverse_api(self, session_token_value=None):
         """

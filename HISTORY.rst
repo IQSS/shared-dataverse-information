@@ -3,6 +3,10 @@
 Release History
 ---------------
 
+0.3.3 (2015-02-24)
+++++++++++++++++++
+Use forms to reduce size of map_image_link.  Change bbox decimal precision to 4. See "def format_to_len255"
+
 0.3.2 (2015-02-24)
 ++++++++++++++++++
 Changed map_image_link from a URLField to a TextField.  Ran into error when the value exceeded 255 chars.
