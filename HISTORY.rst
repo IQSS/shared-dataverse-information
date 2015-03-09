@@ -3,6 +3,10 @@
 Release History
 ---------------
 
+0.3.3 (2015-03-09)
+++++++++++++++++++
+Added TABULAR_TYPES in the DataverseInfo model
+
 0.3.3 (2015-02-24)
 ++++++++++++++++++
 Use forms to reduce size of map_image_link.  Change bbox decimal precision to 4. See "def format_to_len255"

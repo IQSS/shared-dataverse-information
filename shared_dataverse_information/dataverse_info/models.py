@@ -1,6 +1,25 @@
 from django.db import models
 
 
+# From MimeTypeDisplay.properties in the Dataverse repository
+# From: https://github.com/IQSS/dataverse/blob/master/src/main/java/MimeTypeDisplay.properties
+
+# Shapefile
+CONTENT_TYPE_SHAPEFILE = 'application/zipped-shapefile'
+
+# Recognized tabular data
+CONTENT_TYPE_TAB_DELIMITED = 'text/tab-separated-values'
+CONTENT_TYPE_CSV = 'text/csv'
+CONTENT_TYPE_MS_EXCEL_XLS = 'application/vnd.ms-excel'
+CONTENT_TYPE_MS_EXCEL_XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+
+TABULAR_TYPES = ('CONTENT_TYPE_TAB_DELIMITED' \
+                , 'CONTENT_TYPE_CSV'\
+                , 'CONTENT_TYPE_MS_EXCEL'\
+                , 'CONTENT_TYPE_MS_EXCEL_XLSX'\
+                )
+
+
 class DataverseInfo(models.Model):
     """
     If a map layer is created using a dataverse file, this objects contains Dataverse specific information regarding that file.
