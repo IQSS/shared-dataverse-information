@@ -6,7 +6,8 @@ Release History
 0.3.5 (2015-03-10)
 ++++++++++++++++++
 Added worldmap_tables to begin facilitation of geoconnect API
-- Added TableJoinResultForm
+- Added TableJoinResult, TableJoinResultForm
+- Added TableJoinRequest, TableJoinRequestForm
 
 0.3.4 (2015-03-09)
 ++++++++++++++++++

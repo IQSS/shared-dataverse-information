@@ -4,8 +4,19 @@ Models Used for the WorldMap Datatables API.  geonode.contrib.datatables
 Regular Datatables API
 And communication between GeoConnect and Worldmap
 """
-from .models import TableJoinResult, TABLE_JOIN_TO_RESULT_MAP
+from .models import TableJoinRequest, TableJoinResult, TABLE_JOIN_TO_RESULT_MAP
 from django import forms
+
+
+class TableJoinRequestForm(forms.ModelForm):
+    """
+    Used for the Worldmap table_join* API
+        * geonode.contrib.datatables.views.table_join
+    """
+    class Meta:
+        model = TableJoinRequest
+
+
 
 class TableJoinResultForm(forms.ModelForm):
     """
@@ -17,6 +28,23 @@ class TableJoinResultForm(forms.ModelForm):
                     , 'dataset_description': forms.Textarea(attrs={'rows': 2, 'cols':70})\
                # , 'name': forms.TextInput(attrs={'size':20})
                 }
+
+
+    @staticmethod
+    def get_cleaned_data_from_table_join(table_join):
+        """
+        Given a WorldMap TableJoin* object:
+            - Evaluate it against the TableJoinResultForm
+            - Return the form's cleaned_data
+
+        Method used to return WorldMap join results--expected to evaluate cleanly
+            e.g. It works or throws an assertion error
+        """
+        f = TableJoinResultForm.create_form_from_table_join(table_join)
+
+        assert f.is_valid(), "Data for TableJoinResultForm is not valid.  \nErrors:%s" % f.errors()
+
+        return f.cleaned_data
 
     @staticmethod
     def create_form_from_table_join(table_join):
@@ -62,7 +90,7 @@ class TableJoinResultForm(forms.ModelForm):
 
 """
 python manage.py shell --settings=geonode.settings
-from shared_dataverse_information.worldmap_datatables.forms import *
+from shared_dataverse_information.worldmap_datatables.forms import TableJoinResultForm
 from geonode.contrib.datatables.models import *
 tj = TableJoin.objects.all()[0]
 f = TableJoinResultForm.create_form_from_table_join(tj)

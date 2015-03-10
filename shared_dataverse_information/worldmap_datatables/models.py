@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -14,6 +15,30 @@ TABLE_JOIN_TO_RESULT_MAP = dict(tablejoin_id='pk'\
                         , layer_typename='join_layer.typename'\
                         , layer_join_attribute='layer_attribute.attribute'\
     )
+
+class TableJoinRequest(models.Model):
+
+    table_name = models.CharField(max_length=255, help_text='DataTable name')
+    table_attribute = models.CharField(max_length=255\
+                                    , help_text='DataTableattribute name to join on')
+
+    layer_typename = models.CharField(max_length=255, help_text='Layer name')
+    layer_attribute = models.CharField(max_length=255\
+                                    , help_text='Layer attribute name to join on')
+
+    new_layer_owner = models.ForeignKey(User, blank=True, null=True, help_text='Optional owner')
+
+    def __unicode__(self):
+        return 'DataTable: (%s.%s) to Layer: (%s.%s)'\
+                % (self.table_name\
+                    , self.table_attribute\
+                    , self.layer_typename\
+                    , self.layer_attribute\
+                )
+
+    class Meta:
+        abstract = True
+
 
 class TableJoinResult(models.Model):
     """
@@ -55,17 +80,3 @@ class TableJoinResult(models.Model):
         abstract = True
 
 
-    """
-
-     'join_id': tj.pk,
-                    'view_name': tj.view_name,
-                    'matched_records': tj.matched_records_count,
-                    'unmatched_records': tj.unmatched_records_count,
-                    'unmatched_records_list': tj.unmatched_records_list,
-                    'datatable': tj.datatable.table_name,
-                    'source_layer': tj.source_layer.typename,
-                    'table_attribute': tj.table_attribute.attribute,
-                    'layer_attribute': tj.layer_attribute.attribute,
-                    'join_layer': tj.join_layer.typename,
-                    'layer_url': tj.join_layer.get_absolute_url()
-    """
