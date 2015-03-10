@@ -42,7 +42,7 @@ class DataverseInfo(models.Model):
     #-------------------------
     # dataverse info
     #-------------------------
-    dataverse_installation_name = models.CharField(max_length=255, default='Harvard Dataverse', help_text='Harvard Dataverse, Odum Institute Dataverse, etc')
+    dataverse_installation_name = models.CharField(max_length=255, default='Harvard Dataverse', help_text='url to Harvard Dataverse, Odum Institute Dataverse, etc')
     dataverse_id = models.IntegerField(default=-1, help_text='id in database')
     dataverse_name = models.CharField(max_length=255, db_index=True)
     dataverse_description = models.TextField(blank=True) 

@@ -3,7 +3,12 @@
 Release History
 ---------------
 
-0.3.3 (2015-03-09)
+0.3.5 (2015-03-10)
+++++++++++++++++++
+Added worldmap_tables to begin facilitation of geoconnect API
+- Added TableJoinResultForm
+
+0.3.4 (2015-03-09)
 ++++++++++++++++++
 Added TABULAR_TYPES in the DataverseInfo model
 
