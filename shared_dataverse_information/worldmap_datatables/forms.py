@@ -4,8 +4,32 @@ Models Used for the WorldMap Datatables API.  geonode.contrib.datatables
 Regular Datatables API
 And communication between GeoConnect and Worldmap
 """
-from .models import TableJoinRequest, TableJoinResult, TABLE_JOIN_TO_RESULT_MAP
 from django import forms
+from shared_dataverse_information.worldmap_api_helper.forms_api_validate import APIValidateHelperForm
+
+from .models import TableJoinRequest, TableUploadAndJoinRequest, TableJoinResult, TABLE_JOIN_TO_RESULT_MAP
+
+
+class TableUploadAndJoinRequestFormWithValidate(APIValidateHelperForm):
+    """
+    Used for the Worldmap table_join* API
+        * geonode.contrib.datatables.views.table_join
+    """
+    def get_validation_field_names(self):
+        return ('table_name', 'table_attribute', 'layer_attribute')
+
+    class Meta:
+        model = TableUploadAndJoinRequest
+
+
+class TableUploadAndJoinRequestForm(forms.ModelForm):
+    """
+    Used for the Worldmap datatable_upload_and_join_api* API
+        * geonode.contrib.datatables.views.datatable_upload_and_join_api
+    """
+    class Meta:
+        model = TableUploadAndJoinRequest
+
 
 
 class TableJoinRequestForm(forms.ModelForm):

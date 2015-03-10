@@ -16,6 +16,31 @@ TABLE_JOIN_TO_RESULT_MAP = dict(tablejoin_id='pk'\
                         , layer_join_attribute='layer_attribute.attribute'\
     )
 
+
+class TableUploadAndJoinRequest(models.Model):
+
+    title = models.CharField(max_length=255, help_text='Title for New DataTable')
+    table_attribute = models.CharField(max_length=255\
+                                    , help_text='DataTableattribute name to join on')
+
+    layer_typename = models.CharField(max_length=255, help_text='Layer name')
+    layer_attribute = models.CharField(max_length=255\
+                                    , help_text='Layer attribute name to join on')
+
+    new_layer_owner = models.ForeignKey(User, blank=True, null=True, help_text='Optional owner')
+
+    def __unicode__(self):
+        return 'DataTable: %s to Layer: %s.%s)'\
+                % (self.title\
+                    , self.layer_typename\
+                    , self.layer_attribute\
+                )
+
+    class Meta:
+        abstract = True
+
+
+
 class TableJoinRequest(models.Model):
 
     table_name = models.CharField(max_length=255, help_text='DataTable name')
