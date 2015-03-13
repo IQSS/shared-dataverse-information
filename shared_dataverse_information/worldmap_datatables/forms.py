@@ -7,7 +7,29 @@ And communication between GeoConnect and Worldmap
 from django import forms
 from shared_dataverse_information.worldmap_api_helper.forms_api_validate import APIValidateHelperForm
 
-from .models import TableJoinRequest, TableUploadAndJoinRequest, TableJoinResult, TABLE_JOIN_TO_RESULT_MAP
+from .models import TableJoinRequest, TableUploadAndJoinRequest, TableJoinResult, TABLE_JOIN_TO_RESULT_MAP, MapLatLngLayerRequest
+
+
+class MapLatLngLayerRequestForm(forms.ModelForm):
+    """
+    Used for the Worldmap datatable_upload_lat_lon_api* API
+            * geonode.contrib.datatables.views.datatable_upload_lat_lon_api
+
+    """
+    class Meta:
+        model = MapLatLngLayerRequest
+
+
+class MapLatLngLayerRequestFormWithValidate(APIValidateHelperForm):
+    """
+    Used for the Worldmap API request
+    """
+    def get_validation_field_names(self):
+        return ('lng_attribute', 'lat_attribute', 'title')
+
+    class Meta:
+        model = MapLatLngLayerRequest
+
 
 
 class TableUploadAndJoinRequestFormWithValidate(APIValidateHelperForm):
