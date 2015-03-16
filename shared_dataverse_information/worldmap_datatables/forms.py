@@ -70,10 +70,6 @@ class TableJoinResultForm(forms.ModelForm):
     """
     class Meta:
         model = TableJoinResult
-        widgets = {  'dataverse_description': forms.Textarea(attrs={'rows': 2, 'cols':70})\
-                    , 'dataset_description': forms.Textarea(attrs={'rows': 2, 'cols':70})\
-               # , 'name': forms.TextInput(attrs={'size':20})
-                }
 
 
     @staticmethod
