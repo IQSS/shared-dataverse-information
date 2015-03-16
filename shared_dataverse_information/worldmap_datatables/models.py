@@ -10,6 +10,7 @@ TABLE_JOIN_TO_RESULT_MAP = dict(tablejoin_id='pk'\
                         , matched_record_count='matched_records_count'\
                         , unmatched_record_count='unmatched_records_count'\
                         , unmatched_records_list='unmatched_records_list'\
+                        , table_id='datatable.id'\
                         , table_name='datatable.table_name'\
                         , table_join_attribute='table_attribute.attribute'\
                         , layer_typename='join_layer.typename'\
@@ -140,6 +141,7 @@ class TableJoinResult(models.Model):
     unmatched_record_count = models.IntegerField(default=0, help_text='TableJoin unmatched_records_count')
     unmatched_records_list = models.TextField(blank=True, help_text='TableJoin unmatched_records_list')
 
+    table_id = models.IntegerField(help_text='TableJoin datatable.id')
     table_name = models.CharField(max_length=255, help_text='TableJoin datatable.table_name')
     table_join_attribute = models.CharField(max_length=255\
                         , help_text='TableJoin table_attribute.attribute')
