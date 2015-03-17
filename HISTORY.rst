@@ -4,9 +4,14 @@ Release History
 ---------------
 
 
+0.3.6 (2015-03-17)
+++++++++++++++++++
+- Added DataTableUploadForm
+- Added attributes to TableUploadAndJoinRequest
+
 0.3.5 (2015-03-13)
 ++++++++++++++++++
-Added worldmap_tables to for geoconnect API
+Added worldmap_datatables for geoconnect API
 - Added TableJoinResult, TableJoinResultForm
 - Added TableJoinRequest, TableJoinRequestForm
 - Added MapLatLngLayerRequest, MapLatLngLayerRequestForm

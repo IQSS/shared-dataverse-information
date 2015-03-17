@@ -7,6 +7,7 @@ And communication between GeoConnect and Worldmap
 from django import forms
 from shared_dataverse_information.worldmap_api_helper.forms_api_validate import APIValidateHelperForm
 
+from .delimiter_helper import format_delimiter
 from .models import TableJoinRequest, TableUploadAndJoinRequest, TableJoinResult, TABLE_JOIN_TO_RESULT_MAP, MapLatLngLayerRequest
 
 
@@ -31,12 +32,46 @@ class MapLatLngLayerRequestFormWithValidate(APIValidateHelperForm):
         model = MapLatLngLayerRequest
 
 
+class DataTableUploadForm(forms.ModelForm):
+    """
+    Used for the Worldmap table_join* API
+        * geonode.contrib.datatables.views.datatable_upload_api
+    """
+    def clean_delimiter(self):
+        """
+        Return 1-string delimiter value.  
+        """
+        delim_value = format_delimiter(self.cleaned_data.get('delimiter', None))
+        
+        if delim_value is None:
+            raise forms.ValidationError(_('Invalid value'))
+        
+        return str(delim_value)
+        
+        
+    class Meta:
+        model = TableUploadAndJoinRequest
+        fields = ('title', 'abstract', 'delimiter', 'no_header_row')
+
+
+
 
 class TableUploadAndJoinRequestFormWithValidate(APIValidateHelperForm):
     """
     Used for the Worldmap table_join* API
         * geonode.contrib.datatables.views.table_join
     """
+    def clean_delimiter(self):
+        """
+        Return 1-string delimiter value.  
+        """
+        delim_value = format_delimiter(self.cleaned_data.get('delimiter', None))
+        
+        if delim_value is None:
+            raise forms.ValidationError(_('Invalid value'))
+        
+        return str(delim_value)
+        
     def get_validation_field_names(self):
         return ('table_name', 'table_attribute', 'layer_attribute')
 
@@ -49,6 +84,17 @@ class TableUploadAndJoinRequestForm(forms.ModelForm):
     Used for the Worldmap datatable_upload_and_join_api* API
         * geonode.contrib.datatables.views.datatable_upload_and_join_api
     """
+    def clean_delimiter(self):
+        """
+        Return 1-string delimiter value.  
+        """
+        delim_value = format_delimiter(self.cleaned_data.get('delimiter', None))
+        
+        if delim_value is None:
+            raise forms.ValidationError(_('Invalid value'))
+        
+        return str(delim_value)
+        
     class Meta:
         model = TableUploadAndJoinRequest
 

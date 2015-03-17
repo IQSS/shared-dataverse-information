@@ -2,31 +2,35 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-TABLE_JOIN_TO_RESULT_MAP = dict(tablejoin_id='pk'\
-                        , tablejoin_view_name='view_name'\
-                        , join_layer_id='join_layer.id'\
-                        , join_layer_typename='join_layer.typename'\
-                        , join_layer_url='join_layer.get_absolute_url'\
-                        , matched_record_count='matched_records_count'\
-                        , unmatched_record_count='unmatched_records_count'\
-                        , unmatched_records_list='unmatched_records_list'\
-                        , table_id='datatable.id'\
-                        , table_name='datatable.table_name'\
-                        , table_join_attribute='table_attribute.attribute'\
-                        , layer_typename='join_layer.typename'\
-                        , layer_join_attribute='layer_attribute.attribute'\
-    )
+TABLE_JOIN_TO_RESULT_MAP = dict(tablejoin_id='pk',
+                             tablejoin_view_name='view_name',
+                             join_layer_id='join_layer.id',
+                             join_layer_typename='join_layer.typename',
+                             join_layer_url='join_layer.get_absolute_url',
+                             matched_record_count='matched_records_count',
+                             unmatched_record_count='unmatched_records_count',
+                             unmatched_records_list='unmatched_records_list',
+                             table_id='datatable.id',
+                             table_name='datatable.table_name',
+                             table_join_attribute='table_attribute.attribute',
+                             layer_typename='join_layer.typename',
+                             layer_join_attribute='layer_attribute.attribute')
 
 
 
 class TableUploadAndJoinRequest(models.Model):
 
     title = models.CharField(max_length=255, help_text='Title for New DataTable')
-    table_attribute = models.CharField(max_length=255\
-                                    , help_text='DataTable attribute name to join on')
+    abstract = models.TextField(default='(no abstract)')
+    delimiter = models.CharField(max_length=10, default=',')
+    no_header_row = models.BooleanField(default=False,
+            help_text='Specify "True" if the first row is not a header')
+
+    table_attribute = models.CharField(max_length=255,
+                                     help_text='DataTable attribute name to join on')
     layer_typename = models.CharField(max_length=255, help_text='Layer name')
-    layer_attribute = models.CharField(max_length=255\
-                                    , help_text='Layer attribute name to join on')
+    layer_attribute = models.CharField(max_length=255,
+                                    help_text='Layer attribute name to join on')
 
     new_layer_owner = models.ForeignKey(User, blank=True, null=True, help_text='Optional owner')
 
