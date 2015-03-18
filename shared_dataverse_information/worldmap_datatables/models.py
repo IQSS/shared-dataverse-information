@@ -23,6 +23,9 @@ class TableUploadAndJoinRequest(models.Model):
     title = models.CharField(max_length=255, help_text='Title for New DataTable')
     abstract = models.TextField(default='(no abstract)')
     delimiter = models.CharField(max_length=10, default=',')
+
+    uploaded_file = models.FileField(upload_to='datatables/%Y/%m/%d')
+
     no_header_row = models.BooleanField(default=False,
             help_text='Specify "True" if the first row is not a header')
 
@@ -51,6 +54,12 @@ class MapLatLngLayerRequest(models.Model):
     """
     title = models.CharField(max_length=255, help_text='Title for New DataTable')
     abstract = models.TextField(default='(no abstract)')
+
+    delimiter = models.CharField(max_length=10, default=',')
+    uploaded_file = models.FileField(upload_to='datatables/%Y/%m/%d')
+    no_header_row = models.BooleanField(default=False,
+            help_text='Specify "True" if the first row is not a header')
+
     lng_attribute = models.CharField(max_length=255, help_text='Longitude column name')
     lat_attribute = models.CharField(max_length=255, help_text='Latitude column name')
 

@@ -6,7 +6,7 @@ Release History
 
 0.3.6 (2015-03-17)
 ++++++++++++++++++
-- Added DataTableUploadForm
+- Added DataTableUploadForm (+ uploaded_file field)
 - Added attributes to TableUploadAndJoinRequest
 
 0.3.5 (2015-03-13)
