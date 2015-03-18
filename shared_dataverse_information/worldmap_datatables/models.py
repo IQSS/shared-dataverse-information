@@ -47,6 +47,24 @@ class TableUploadAndJoinRequest(models.Model):
     class Meta:
         abstract = True
 
+class DataTableResponse(models.Model):
+    """
+    Used for the Worldmap API responses
+    """
+    id = models.IntegerField()
+    title = models.CharField(max_length=255)
+    abstract = models.TextField(blank=True)
+    delimiter = models.CharField(max_length=6, default='')
+    #owner = models.ForeignKey(User, blank=True, null=True)
+    table_name = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        abstract=True
+
+
 
 class MapLatLngLayerRequest(models.Model):
     """
@@ -63,7 +81,11 @@ class MapLatLngLayerRequest(models.Model):
     lng_attribute = models.CharField(max_length=255, help_text='Longitude column name')
     lat_attribute = models.CharField(max_length=255, help_text='Latitude column name')
 
+    def __unicode__(self):
+        return self.title
 
+    class Meta:
+        abstract = True
 
 class MapLatLngLayerResult(models.Model):
     """

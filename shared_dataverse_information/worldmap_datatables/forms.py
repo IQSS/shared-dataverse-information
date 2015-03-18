@@ -8,7 +8,17 @@ from django import forms
 from shared_dataverse_information.worldmap_api_helper.forms_api_validate import APIValidateHelperForm
 
 from .delimiter_helper import format_delimiter
-from .models import TableJoinRequest, TableUploadAndJoinRequest, TableJoinResult, TABLE_JOIN_TO_RESULT_MAP, MapLatLngLayerRequest
+from .models import TableJoinRequest, TableUploadAndJoinRequest, TableJoinResult, TABLE_JOIN_TO_RESULT_MAP,\
+        MapLatLngLayerRequest, DataTableResponse
+
+
+class DataTableResponseForm(forms.ModelForm):
+    """
+    Used for the Worldmap datatable_detail* API
+            * geonode.contrib.datatables.views.datatable_detail
+    """
+    class Meta:
+        model = DataTableResponse
 
 
 class MapLatLngLayerRequestForm(forms.ModelForm):
