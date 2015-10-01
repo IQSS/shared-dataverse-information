@@ -5,12 +5,10 @@ from .models import ShapefileImportData
 from shared_dataverse_information.worldmap_api_helper.forms_api_validate import APIValidateHelperForm
 
 
+class ShapefileImportDataForm(forms.ModelForm):
 
-
-class ShapefileImportDataForm(APIValidateHelperForm):
-
-    def get_validation_field_names(self):
-        return ('dv_user_email', 'shapefile_name')
+    #def get_validation_field_names(self):
+    #    return ('dv_user_email', 'shapefile_name')
 
     class Meta:
         model = ShapefileImportData

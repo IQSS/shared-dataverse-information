@@ -9,7 +9,7 @@ from shared_dataverse_information.worldmap_api_helper.forms_api_validate import 
 DATETIME_PAT_STR = '%Y-%m-%d %H:%M:%S'
 
 
-class CheckForExistingLayerForm(APIValidateHelperForm):
+class CheckForExistingLayerForm(forms.ModelForm):
 #class EmbedLayerForm(forms.ModelForm):
     """Used to validate incoming data from GeoConnect
 
@@ -17,12 +17,6 @@ class CheckForExistingLayerForm(APIValidateHelperForm):
         - Dataverse file id
         - Dataverse installation name
     """
-                
-    def get_validation_field_names(self):
-        return ('datafile_id', 'dataverse_installation_name')
-        #return ( 'dv_user_id',  'datafile_id',)
-
-            
     class Meta:
         model = DataverseInfo
         fields = ( 'datafile_id', 'dataverse_installation_name')
