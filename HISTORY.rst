@@ -3,6 +3,11 @@
 Release History
 ---------------
 
+0.4.0 (2015-12-14)
+++++++++++++++++++
+- Forms ClassifyRequestDataForm and LayerAttributeRequestForm are no longer inheriting from APIValidateHelperForm
+
+
 0.3.7 (2015-03-18)
 ++++++++++++++++++
 - Added DataTableResponse

@@ -6,10 +6,11 @@ URLs for APIS used to contact the WorldMap
 """
 
 def format_worldmap_api_url(url_path):
-    
+
     assert url_path is not None, "url path cannot be None"
-    
-    formatted_url = '/'.join(s for s in (settings.WORLDMAP_SERVER_URL.strip('/'), url_path.lstrip('/')))
+
+    formatted_url = '/'.join(s for s in \
+        (settings.WORLDMAP_SERVER_URL.strip('/'), url_path.lstrip('/')))
 
     return formatted_url
 
@@ -37,15 +38,18 @@ GET_CLASSIFY_ATTRIBUTES_API_PATH = format_worldmap_api_url('/dataverse/get-class
 
 # Get existing layer by Dataverse installation name and Dataverse file id
 #
-GET_LAYER_INFO_BY_DATAVERSE_INSTALLATION_AND_FILE_API_PATH = format_worldmap_api_url('/dataverse-layer/get-existing-layer-info/')
+GET_LAYER_INFO_BY_DATAVERSE_INSTALLATION_AND_FILE_API_PATH = \
+    format_worldmap_api_url('/dataverse-layer/get-existing-layer-info/')
 
 
 # check for existing layer
 #
 CHECK_FOR_EXISTING_LAYER_API_PATH = format_worldmap_api_url('/dataverse/check-for-existing-layer/')
 
-
-
 #
 #
 #GET_VIEW_PRIVATE_LAYER_URL = format_worldmap_api_url('dataverse-private-layer/request-private-layer-url/')
+
+#
+# Datatables: Retrieve potential datatable JoinTargets
+GET_JOIN_TARGETS = format_worldmap_api_url('/datatables/api/jointargets/')
