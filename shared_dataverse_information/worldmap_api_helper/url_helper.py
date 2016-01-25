@@ -53,3 +53,5 @@ CHECK_FOR_EXISTING_LAYER_API_PATH = format_worldmap_api_url('/dataverse/check-fo
 #
 # Datatables: Retrieve potential datatable JoinTargets
 GET_JOIN_TARGETS = format_worldmap_api_url('/datatables/api/jointargets/')
+
+MAP_LAT_LNG_TABLE_API_PATH = format_worldmap_api_url('/datatables/api/upload_lat_lon/')

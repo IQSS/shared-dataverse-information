@@ -5,9 +5,8 @@ Release History
 
 0.4.1 (2016-01-25)
 ++++++++++++++++++
-- remove APIValidateHelperForm
-- remove TableUploadAndJoinRequestFormWithValidate
-- remove MapLatLngLayerRequestFormWithValidate
+- Remove APIValidateHelperForm, MapLatLngLayerRequestFormWithValidate, TableUploadAndJoinRequestFormWithValidate
+- Adding url for mapping lat/lng
 
 0.4.0 (2015-12-14)
 ++++++++++++++++++
