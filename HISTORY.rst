@@ -3,10 +3,16 @@
 Release History
 ---------------
 
+0.4.1 (2016-01-25)
+++++++++++++++++++
+- remove APIValidateHelperForm
+- remove TableUploadAndJoinRequestFormWithValidate
+- remove MapLatLngLayerRequestFormWithValidate
+
 0.4.0 (2015-12-14)
 ++++++++++++++++++
 - Forms ClassifyRequestDataForm and LayerAttributeRequestForm are no longer inheriting from APIValidateHelperForm
-
+- Note, this is being re-configured to use regular auth for the WorldMap instead of a token
 
 0.3.7 (2015-03-18)
 ++++++++++++++++++

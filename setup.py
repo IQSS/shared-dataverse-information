@@ -14,7 +14,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/development.html#single-sourcing-the-version
-    version='0.3.8',
+    version='0.4.1',
 
     description='Shared code for the Dataverse and WorldMap connection.',
     long_description=long_description,
@@ -80,7 +80,7 @@ setup(
        'Django>=1.4,<1.7',
        'requests==2.3.0',
     ],
-    
+
     # List additional groups of dependencies here (e.g. development dependencies).
     # You can install these using the following syntax, for example:
     # $ pip install -e .[dev,test]

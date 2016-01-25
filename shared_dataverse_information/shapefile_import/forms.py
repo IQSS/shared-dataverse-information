@@ -2,8 +2,6 @@ from django import forms
 
 from .models import ShapefileImportData
 
-from shared_dataverse_information.worldmap_api_helper.forms_api_validate import APIValidateHelperForm
-
 
 class ShapefileImportDataForm(forms.ModelForm):
 
