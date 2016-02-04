@@ -17,34 +17,34 @@ def format_worldmap_api_url(url_path):
 
 # shapefile import API
 #
-ADD_SHAPEFILE_API_PATH = format_worldmap_api_url('/dataverse/import-shapefile/')
+ADD_SHAPEFILE_API_PATH = format_worldmap_api_url('/dataverse/api/import-shapefile/')
 
 
 # Delete dataverse-created map layer
 #
-DELETE_LAYER_API_PATH = format_worldmap_api_url('/dataverse/delete-map-layer/')
+DELETE_LAYER_API_PATH = format_worldmap_api_url('/dataverse/api/delete-map-layer/')
 
 
 # classify layer API
 #
-CLASSIFY_LAYER_API_PATH = format_worldmap_api_url('/dataverse/classify-layer/')
+CLASSIFY_LAYER_API_PATH = format_worldmap_api_url('/dataverse/api/classify-layer/')
 
 
 # classify layer API
 #
-GET_CLASSIFY_ATTRIBUTES_API_PATH = format_worldmap_api_url('/dataverse/get-classify-attributes/')
+GET_CLASSIFY_ATTRIBUTES_API_PATH = format_worldmap_api_url('/dataverse/api/get-classify-attributes/')
 
 
 
 # Get existing layer by Dataverse installation name and Dataverse file id
 #
 GET_LAYER_INFO_BY_DATAVERSE_INSTALLATION_AND_FILE_API_PATH = \
-    format_worldmap_api_url('/dataverse-layer/get-existing-layer-info/')
+    format_worldmap_api_url('/dataverse/api/layer-info/')
 
 
 # check for existing layer
 #
-CHECK_FOR_EXISTING_LAYER_API_PATH = format_worldmap_api_url('/dataverse/check-for-existing-layer/')
+#CHECK_FOR_EXISTING_LAYER_API_PATH = format_worldmap_api_url('/dataverse/api/check-for-existing-layer/')
 
 #
 #
@@ -54,6 +54,14 @@ CHECK_FOR_EXISTING_LAYER_API_PATH = format_worldmap_api_url('/dataverse/check-fo
 # Datatables: Retrieve potential datatable JoinTargets
 GET_JOIN_TARGETS = format_worldmap_api_url('/datatables/api/jointargets/')
 
-#MAP_LAT_LNG_TABLE_API_PATH = format_worldmap_api_url('/datatables/api/upload_lat_lon/')
-MAP_LAT_LNG_TABLE_API_PATH = format_worldmap_api_url('/dataverse-tabular/api/upload-lat-lng/')
-UPLOAD_JOIN_DATATABLE_API_PATH = format_worldmap_api_url('/dataverse-tabular/api/upload-join/')
+#
+# Datatables: Join table to JoinTarget
+UPLOAD_JOIN_DATATABLE_API_PATH = format_worldmap_api_url('dataverse/api/tabular/upload-join/')
+
+#
+# Retreive existing table join info - /dataverse-tabular/api/join/(?P<tj_id>\d+)
+GET_TABLEJOIN_INFO = format_worldmap_api_url('/datatables/api/join/')
+
+#
+# Datatables: Map Lat/Lng table
+MAP_LAT_LNG_TABLE_API_PATH = format_worldmap_api_url('/dataverse/api/tabular/api/upload-lat-lng/')
