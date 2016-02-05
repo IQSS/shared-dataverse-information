@@ -14,7 +14,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/development.html#single-sourcing-the-version
-    version='0.4.3',
+    version='0.4.4',
 
     description='Shared code for the Dataverse and WorldMap connection.',
     long_description=long_description,
@@ -69,6 +69,7 @@ setup(
         'shared_dataverse_information.shapefile_import',
         'shared_dataverse_information.shared_form_util',
         'shared_dataverse_information.worldmap_api_helper',
+        'shared_dataverse_information.worldmap_datatables',
     ],
 
     # List run-time dependencies here.  These will be installed by pip when your

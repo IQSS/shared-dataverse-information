@@ -3,6 +3,10 @@
 Release History
 ---------------
 
+0.4.4 (2016-02-05)
+++++++++++++++++++
+- Fixed setup packages list, was missing "worldmap_datatables"
+
 0.4.3 (2016-02-04)
 ++++++++++++++++++
 - Remove unused WORLDMAP_TOKEN_NAME_FOR_DV
