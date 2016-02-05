@@ -24,7 +24,7 @@ CLASSIFY_STRING_METHOD_CHOICES = [ (x.id, x.display_name) for x in Classificatio
 COLOR_RAMP_CHOICES = [ (x.id, x.display_name) for x in ColorRamp.objects.filter(active=True) ]
 
 ATTRIBUTE_VALUE_DELIMITER = '|'
-FIELD_CSS_ATTRS = {'class':'form-control input-sm'} 
+FIELD_CSS_ATTRS = {'class':'form-control input-sm'}
 
 print 'CLASSIFY_METHOD_CHOICES', CLASSIFY_METHOD_CHOICES
 
@@ -51,13 +51,13 @@ class ClassifyLayerForm(forms.Form):
 
     #startColor =forms.CharField(max_length=7, required=False)   # irregular naming convention used to match the outgoing url string
     #endColor =forms.CharField(max_length=7, required=False)      # irregular naming convention used to match the outgoing url string
-    # 
-    # 
-    
+    #
+    #
+
     def __init__(self, *args, **kwargs):
         """Initialize with a layer name and attribute information
             (a) layer_name - Name of layer to classify.  Example: "geonode:social_disorder_shapefile_zip_fif"
-            
+
             (b) raw_attribute_info - list containing attributes associated with dataset.
                     Each attribute is a dict.  Example: [ {"type": "double", "display_name": "Area", "name": "AREA"}, ... (etc) ... ]
         """
@@ -66,7 +66,7 @@ class ClassifyLayerForm(forms.Form):
         assert layer_name is not None, "layer_name is required in kwargs"
         assert isinstance(raw_attribute_info, list) or isinstance(raw_attribute_info, tuple)\
                 , "raw_attribute_info must be a list or tuple"
-        
+
         # Initialize form
         super(ClassifyLayerForm, self).__init__(*args, **kwargs)
 
@@ -75,27 +75,27 @@ class ClassifyLayerForm(forms.Form):
 
         # Format attribute information
         attribute_choices = ClassifyLayerForm.format_attribute_choices_for_form(raw_attribute_info)
-        # Initialize "attribute" field with the formatted attribute information 
+        # Initialize "attribute" field with the formatted attribute information
         self.fields['attribute'] = forms.ChoiceField(choices=attribute_choices, widget=forms.Select(attrs=FIELD_CSS_ATTRS))
-        
-        
+
+
     @staticmethod
     def format_attribute_choices_for_form(attr_info):
         """
         example of item in 'raw list'
-            {"display_name": "Objectid", "type": "long", "name": "OBJECTID"}, 
+            {"display_name": "Objectid", "type": "long", "name": "OBJECTID"},
 
         formatted item:
             ('long|OBJECTID', 'Objectid')
-        """        
-        if attr_info is None or len(attr_info) == 0: 
+        """
+        if attr_info is None or len(attr_info) == 0:
             return [('-1', 'Information not found')]
-        
+
         choice_tuples = []
         for x in attr_info:
             if not type(x) is dict: continue        # skip non dicts
             if not (x.has_key('type') and x.has_key('name') and x.has_key('display_name')): continue    # skip missing keys
-            
+
             choice_pair = ('%s%s%s' % (x['type'],ATTRIBUTE_VALUE_DELIMITER, x['name']), x['display_name'])     # format choice
             choice_tuples.append( choice_pair)      # add choice
 
@@ -106,19 +106,19 @@ class ClassifyLayerForm(forms.Form):
 
     @staticmethod
     def get_classify_choices():
-        return ClassificationMethod.objects.filter(active=True) 
+        return ClassificationMethod.objects.filter(active=True)
 
 
     @staticmethod
     def get_classify_non_string_choices():
-        return ClassificationMethod.objects.filter(active=True, is_string_usable=False) 
+        return ClassificationMethod.objects.filter(active=True, is_string_usable=False)
 
 
     @staticmethod
     def get_classify_string_choices():
-        return ClassificationMethod.objects.filter(active=True, is_string_usable=True) 
+        return ClassificationMethod.objects.filter(active=True, is_string_usable=True)
 
-        
+
     def clean_ramp(self):
         color_ramp_id = self.cleaned_data.get('ramp', None)
         if color_ramp_id is None:
@@ -134,13 +134,13 @@ class ClassifyLayerForm(forms.Form):
             )
             #raise Exception('This value is not an active ColorRamp id')
 
-        return color_ramp_obj 
-    
+        return color_ramp_obj
+
     def clean_method(self):
         method_id = self.cleaned_data.get('method', None)
         if method_id is None:
             raise forms.ValidationError(_('The classification method must be specified'), code='invalid')
-            
+
         try:
             method_obj = ClassificationMethod.objects.filter(active=True).get(pk=method_id)
         except ClassificationMethod.DoesNotExist:
@@ -148,20 +148,20 @@ class ClassifyLayerForm(forms.Form):
                 _('This value is not an active classification id: %(value)s'),\
                 params={'value': method_id },\
             )
-            
+
         return method_obj
-        
+
     def get_worldmap_classify_api_url(self):
         if not self.is_valid:
             return None
-        
+
         layer_name = self.cleaned_data.get('layer_name', None)
         if layer_name is None:
             return None
-            
+
         return CLASSIFY_LAYER_API_PATH
 
-        
+
 
     def clean_attribute(self):
         attribute = self.cleaned_data.get('attribute', None)
@@ -169,12 +169,12 @@ class ClassifyLayerForm(forms.Form):
             raise forms.ValidationError(_('The attribute must be specified'), code='invalid')
 
         return attribute.split(ATTRIBUTE_VALUE_DELIMITER)[-1]
-    
+
     def clean_intervals(self):
         num_bins = self.cleaned_data.get('intervals', None)
         if num_bins is None:
             raise forms.ValidationError(_('The number of intervals must be specified'), code='invalid')
-        
+
         print 'num_bins', type(num_bins)
         if num_bins < 1:
             raise forms.ValidationError(_('The number of intervals must be 1 or greater'), code='invalid')
@@ -183,8 +183,8 @@ class ClassifyLayerForm(forms.Form):
             raise forms.ValidationError(_('The number of intervals must be less than that!'), code='invalid')
 
         return num_bins
-            
-        
+
+
     def clean_layer_name(self):
         """
         "geonode:my_layer_name" becomes "my_layer_name"
@@ -193,19 +193,19 @@ class ClassifyLayerForm(forms.Form):
         layer_name = self.cleaned_data.get('layer_name', None)
         if layer_name is None:
             raise forms.ValidationError(_('The layer name must be specified'), code='invalid')
-        
+
         return format_layer_name_for_classification(layer_name)
 
-    
+
     def get_params_for_display(self):
         if not self.is_valid():
             return None
-            
+
         form_vals = self.cleaned_data.copy()
-        
-        
+
+
         color_ramp_obj = form_vals['ramp']
-        
+
         params = { 'layer_name' : form_vals['layer_name']\
                     , 'attribute' : form_vals['attribute']\
                     , 'intervals' : form_vals['intervals']\
@@ -216,25 +216,24 @@ class ClassifyLayerForm(forms.Form):
                     , 'reverse' : False\
                 }
         return params
-        
+
     def get_params_dict_for_classification(self):
         if not self.is_valid():
             return None
-            
+
         form_vals = self.cleaned_data.copy()
-        
-        
+
+
         color_ramp_obj = form_vals['ramp']
-        
-        params = { 'layer_name' : form_vals['layer_name']\
-                    , 'attribute' : form_vals['attribute']\
-                    , 'intervals' : form_vals['intervals']\
-                    , 'method' :  form_vals['method'].value_name\
-                    , 'ramp' :  color_ramp_obj.value_name\
-                    , 'startColor' :  color_ramp_obj.start_color\
-                    , 'endColor' :  color_ramp_obj.end_color\
-                    , 'reverse' : False\
-                    , settings.WORLDMAP_TOKEN_NAME_FOR_DV : settings.WORLDMAP_TOKEN_FOR_DATAVERSE\
+
+        params = { 'layer_name' : form_vals['layer_name'],
+                    'attribute' : form_vals['attribute'],
+                    'intervals' : form_vals['intervals'],
+                    'method' :  form_vals['method'].value_name,
+                    'ramp' :  color_ramp_obj.value_name,
+                    'startColor' :  color_ramp_obj.start_color,
+                    'endColor' :  color_ramp_obj.end_color,
+                    'reverse' : False,
                 }
         return params
         """

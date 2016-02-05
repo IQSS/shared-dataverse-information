@@ -3,7 +3,11 @@
 Release History
 ---------------
 
-0.4.2 (2016-02-3)
+0.4.3 (2016-02-04)
+++++++++++++++++++
+- Remove unused WORLDMAP_TOKEN_NAME_FOR_DV
+
+0.4.2 (2016-02-03)
 ++++++++++++++++++
 - url updates
 
