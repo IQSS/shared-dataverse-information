@@ -64,4 +64,4 @@ GET_TABLEJOIN_INFO = format_worldmap_api_url('/datatables/api/join/')
 
 #
 # Datatables: Map Lat/Lng table
-MAP_LAT_LNG_TABLE_API_PATH = format_worldmap_api_url('/dataverse/api/tabular/api/upload-lat-lng/')
+MAP_LAT_LNG_TABLE_API_PATH = format_worldmap_api_url('/dataverse/api/tabular/upload-lat-lng/')
