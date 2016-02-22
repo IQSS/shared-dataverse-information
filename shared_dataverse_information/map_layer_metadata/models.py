@@ -22,16 +22,16 @@ WORLDMAP_SERVER_URL_BASE = WORLDMAP_SERVER_URL.split('//')[-1].lower()  # e.g. w
 
 
 
-KEY_MAPPING_FOR_DATAVERSE_API = { 'worldmap_username' : 'worldmapUsername'\
-                                    , 'layer_name' : 'layerName'\
-                                    , 'layer_link' : 'layerLink'\
-                                    , 'embed_map_link' : 'embedMapLink'\
-                                    , 'dv_session_token' : dataverse_token_name\
-                                    , 'map_image_link' : 'mapImageLink'\
-                                    , 'llbbox' : 'LatLngBoundingBox'\
-                                    #, 'download_links' : 'downloadLinks'  # not yet used by dataverse
-                                    #, 'attribute_info' : 'attribute_info'  # not yet used by dataverse
-                                    }
+KEY_MAPPING_FOR_DATAVERSE_API = { 'worldmap_username' : 'worldmapUsername',
+                                'layer_name' : 'layerName',
+                                'layer_link' : 'layerLink',
+                                'embed_map_link' : 'embedMapLink',
+                                'dv_session_token' : dataverse_token_name,
+                                'map_image_link' : 'mapImageLink',
+                                'llbbox' : 'LatLngBoundingBox',
+                                'download_links' : 'mapLayerLinks',
+                                #, 'attribute_info' : 'attribute_info'  # not yet used by dataverse
+                                }
 DATAVERSE_REQUIRED_KEYS = KEY_MAPPING_FOR_DATAVERSE_API.values()
 
 
@@ -53,10 +53,10 @@ class MapLayerMetadata(models.Model):
     dv_session_token = models.CharField(max_length=255, blank=True)
 
 
-        
+
     def __unicode__(self):
         return '%s (user: %s )' % (self.layer_name, self.worldmap_username)
-        
+
     class Meta:
         abstract = True
         verbose_name_plural = 'Map Layer Metadata'

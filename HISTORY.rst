@@ -3,6 +3,10 @@
 Release History
 ---------------
 
+0.4.6 (2016-02-22)
+++++++++++++++++++
+- Updated data for Dataverse API to include layer_links and join_description
+
 0.4.5 (2016-02-08)
 ++++++++++++++++++
 - Fixed url error

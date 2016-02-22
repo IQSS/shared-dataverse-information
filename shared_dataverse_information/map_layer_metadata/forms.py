@@ -25,7 +25,7 @@ class MapLayerMetadataValidationForm(forms.ModelForm):
 class GeoconnectToDataverseDeleteMapLayerMetadataForm(forms.ModelForm):
     """
     Format values to delete map layer metadata from the Dataverse API
-    
+
     This form ony has the field "dv_session_token"
     This form produces a dict with { token key name : token value }
     """
@@ -38,19 +38,19 @@ class GeoconnectToDataverseDeleteMapLayerMetadataForm(forms.ModelForm):
         Format the key names to make them compatible with the dataverse API
 
         :return: dict with formatted parameters
-        """    
+        """
         global KEY_MAPPING_FOR_DATAVERSE_API
 
         assert self.cleaned_data is not None, "cleaned_data not found.  Call and verify that form is_valid()"
-        
+
         return { KEY_MAPPING_FOR_DATAVERSE_API['dv_session_token'] : self.cleaned_data['dv_session_token'] }
-        
+
 
 class GeoconnectToDataverseMapLayerMetadataValidationForm(forms.ModelForm):
 
     class Meta:
         model = MapLayerMetadata
-        exclude = ('download_links', 'attribute_info')
+        exclude = ('attribute_info',)
 
     def clean_map_image_link(self):
         lnk = self.cleaned_data.get('map_image_link', None)
@@ -59,26 +59,30 @@ class GeoconnectToDataverseMapLayerMetadataValidationForm(forms.ModelForm):
 
         return format_to_len255(lnk)
 
-    def format_data_for_dataverse_api(self, session_token_value=None):
+    def format_data_for_dataverse_api(self, session_token_value=None, join_description=None):
         """
         Format the key names to make them compatible with the dataverse API
 
+
+
         :param session_token_value: if not specified, use the form's dv_session_token value
+        :param join_description: text field used for maps created by joining a
+            tabular file to an existing layer
         :return: dict with formatted parameters
         """
         global KEY_MAPPING_FOR_DATAVERSE_API
 
         assert self.cleaned_data is not None, "cleaned_data not found.  Call and verify that form is_valid()"
-        
+
         # If the session_token_value is specified, use that one
         #   Note: For form validation, the session_token_value is optional
-        #   
+        #
         if session_token_value is not None:
             self.cleaned_data['dv_session_token'] = session_token_value
-        
+
         # A session token IS required for this formatting
         if not self.cleaned_data.get('dv_session_token'):
-            raise ValueError("A session token is required for updating Dataverse Metadata")        
+            raise ValueError("A session token is required for updating Dataverse Metadata")
 
         formatted_dict = {}
         for k, v in self.cleaned_data.items():
@@ -88,6 +92,13 @@ class GeoconnectToDataverseMapLayerMetadataValidationForm(forms.ModelForm):
             assert worldmap_key is not None, "Key in MapLayerMetadata model not found in KEY_MAPPING_FOR_DATAVERSE_API api: %s" % k
 
             formatted_dict[worldmap_key] = v
+
+        #   Add join description for tabular files that have been mapped
+        #
+        if join_description is not None:
+            formatted_dict['joinDescription'] = join_description.strip()
+        else:
+            formatted_dict['joinDescription'] = None
 
         return formatted_dict
 
@@ -113,15 +124,15 @@ class WorldMapToGeoconnectMapLayerMetadataValidationForm(forms.ModelForm):
         assert lnk is not None, "lnk cannot be None"
 
         lnk_lower = lnk.lower()
-        
+
         # Don't force https for local host
-        if lnk_lower.find('localhost') > -1 or lnk_lower.find('127.0.0.1') > -1 : 
+        if lnk_lower.find('localhost') > -1 or lnk_lower.find('127.0.0.1') > -1 :
             return lnk
-            
+
         # Is this the worldmap server url?
         if lnk_lower.find(WORLDMAP_SERVER_URL_BASE) > -1:
             # Is https in use?
-            if lnk_lower.find('https') == -1:     # No!        
+            if lnk_lower.find('https') == -1:     # No!
                 # No https, so make it https
                 pattern = re.compile("http", re.IGNORECASE)
                 lnk = pattern.sub("https", lnk)
@@ -156,12 +167,12 @@ class WorldMapToGeoconnectMapLayerMetadataValidationForm(forms.ModelForm):
         lnk = self.cleaned_data.get('layer_link', None)
         if lnk is None:
             raise forms.ValidationError(_('The layer_link must be specified'), code='invalid')
-        
+
         # Replace 1st occurrence of '/data/' with '/maps/new/?layer='
         lnk = lnk.replace('/data/', '/maps/new/?layer=', 1)
-        
+
         return lnk
-        
+
 
     """
     def clean_map_image_link(self):
@@ -171,4 +182,3 @@ class WorldMapToGeoconnectMapLayerMetadataValidationForm(forms.ModelForm):
 
         return self.make_https_link_for_dev_prod(lnk)
     """
-
