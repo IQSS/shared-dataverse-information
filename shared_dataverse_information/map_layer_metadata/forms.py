@@ -1,7 +1,7 @@
 import re
 
 from django import forms
-
+import json
 from .models import MapLayerMetadata, WORLDMAP_SERVER_URL_BASE, KEY_MAPPING_FOR_DATAVERSE_API
 from .form_helper import format_to_len255
 
@@ -58,6 +58,34 @@ class GeoconnectToDataverseMapLayerMetadataValidationForm(forms.ModelForm):
             raise forms.ValidationError(_('The map_image_link must be specified'), code='invalid')
 
         return format_to_len255(lnk)
+
+
+    def clean_download_links(self):
+        """
+        The links are a python dict turned into
+        a string:
+            - turn back to python dict
+            - convert to JSON
+        """
+        dlinks = self.cleaned_data.get('download_links', None)
+        if dlinks is None:
+            return None
+
+        # (1) initial format:
+        # u"{u'zip': u'http://localhost:8000/download/wfs/643/zip?outputFormat=SHAPE-ZIP&service=WFS&request=GetFeature&format_options=charset%3AUTF-8&typename=geonode%3Ajoin_boston_census_blocks_0zm_boston_income_01tab_2_1&version=1.0.0' }"
+
+        # (2) as dict
+        # {u'zip': u'http://localhost:8000/download/wfs/643/zip?outputFormat=SHAPE-ZIP&service=WFS&request=GetFeature&format_options=charset%3AUTF-8&typename=geonode%3Ajoin_boston_census_blocks_0zm_boston_income_01tab_2_1&version=1.0.0'}
+
+        try:
+            pydict = eval(dlinks)   # change to python dict
+        except:
+            return None
+
+        # (3) as JSON string
+        # '{"zip": "http://localhost:8000/download/wfs/643/zip?outputFormat=SHAPE-ZIP&service=WFS&request=GetFeature&format_options=charset%3AUTF-8&typename=geonode%3Ajoin_boston_census_blocks_0zm_boston_income_01tab_2_1&version=1.0.0"}'
+
+        return json.dumps(pydict)   # format as JSON
 
     def format_data_for_dataverse_api(self, session_token_value=None, join_description=None):
         """
