@@ -92,9 +92,22 @@ class ClassifyLayerForm(forms.Form):
             return [('-1', 'Information not found')]
 
         choice_tuples = []
+
         for x in attr_info:
-            if not type(x) is dict: continue        # skip non dicts
-            if not (x.has_key('type') and x.has_key('name') and x.has_key('display_name')): continue    # skip missing keys
+            # (1) Make sure everything is a dict
+            #   and all attributes exist
+            #
+            if not type(x) is dict:
+                continue        # skip non dicts
+            if not (x.has_key('type') and\
+                x.has_key('name') and\
+                x.has_key('display_name')):
+                continue    # skip missing keys
+
+            # (2) Remove "unnamed" attribute
+            #
+            if x['name'] == '_unnamed' and x['display_name'] == '_unnamed':
+                continue
 
             choice_pair = ('%s%s%s' % (x['type'],ATTRIBUTE_VALUE_DELIMITER, x['name']), x['display_name'])     # format choice
             choice_tuples.append( choice_pair)      # add choice

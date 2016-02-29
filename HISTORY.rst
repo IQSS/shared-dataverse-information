@@ -3,6 +3,10 @@
 Release History
 ---------------
 
+0.4.7 (2016-02-29)
+++++++++++++++++++
+- If it appears, remove "_unnamed" attribute from list of classification choices
+
 0.4.6 (2016-02-22)
 ++++++++++++++++++
 - Updated data for Dataverse API to include layer_links and join_description
