@@ -59,8 +59,11 @@ GET_JOIN_TARGETS = format_worldmap_api_url('/datatables/api/jointargets/')
 UPLOAD_JOIN_DATATABLE_API_PATH = format_worldmap_api_url('dataverse/api/tabular/upload-join/')
 
 #
-# Retreive existing table join info - /dataverse-tabular/api/join/(?P<tj_id>\d+)
+# Retrieve existing table join info - /datatables/api/join/(?P<tj_id>\d+)
 GET_TABLEJOIN_INFO = format_worldmap_api_url('/datatables/api/join/')
+
+# /datatables/api/join/remove/(?P<tj_id>\d+)
+DELETE_TABLEJOIN = format_worldmap_api_url('/datatables/api/join/remove/')
 
 #
 # Datatables: Map Lat/Lng table

@@ -6,6 +6,7 @@ Release History
 0.4.7 (2016-02-29)
 ++++++++++++++++++
 - If it appears, remove "_unnamed" attribute from list of classification choices
+- Added url for DELETE_TABLEJOIN
 
 0.4.6 (2016-02-22)
 ++++++++++++++++++
