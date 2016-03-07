@@ -12,7 +12,6 @@ if __name__=='__main__':
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.conf import settings
-#from apps.classification.models import ClassificationMethod, ColorRamp
 from shared_dataverse_information.layer_classification.models import ClassificationMethod, ColorRamp
 
 from shared_dataverse_information.worldmap_api_helper.url_helper import CLASSIFY_LAYER_API_PATH
@@ -26,7 +25,7 @@ COLOR_RAMP_CHOICES = [ (x.id, x.display_name) for x in ColorRamp.objects.filter(
 ATTRIBUTE_VALUE_DELIMITER = '|'
 FIELD_CSS_ATTRS = {'class':'form-control input-sm'}
 
-print 'CLASSIFY_METHOD_CHOICES', CLASSIFY_METHOD_CHOICES
+#print 'CLASSIFY_METHOD_CHOICES', CLASSIFY_METHOD_CHOICES
 
 
 
@@ -35,6 +34,9 @@ class ClassifyLayerForm(forms.Form):
     Evaluate classification parameters to be used for a new layer style
     """
     layer_name = forms.CharField(widget=forms.HiddenInput())
+
+    data_source_type = forms.CharField(widget=forms.HiddenInput())
+
     attribute = forms.ChoiceField(choices=[(-1, 'Error: no choices available')]\
                                     , widget=forms.Select(attrs=FIELD_CSS_ATTRS)\
                                     )
@@ -58,20 +60,27 @@ class ClassifyLayerForm(forms.Form):
         """Initialize with a layer name and attribute information
             (a) layer_name - Name of layer to classify.  Example: "geonode:social_disorder_shapefile_zip_fif"
 
+            (b) data source type: e.g. TYPE_SHAPEFILE_LAYER, TYPE_JOIN_LAYER, TYPE_LAT_LNG_LAYER, etc
+                - values from geoconnect
             (b) raw_attribute_info - list containing attributes associated with dataset.
                     Each attribute is a dict.  Example: [ {"type": "double", "display_name": "Area", "name": "AREA"}, ... (etc) ... ]
         """
         layer_name = kwargs.pop('layer_name', None)
-        raw_attribute_info = kwargs.pop('raw_attribute_info', None)
         assert layer_name is not None, "layer_name is required in kwargs"
+
+        data_source_type = kwargs.pop('data_source_type', None)
+        assert data_source_type is not None, "data_source_type is required in kwargs"
+
+        raw_attribute_info = kwargs.pop('raw_attribute_info', None)
         assert isinstance(raw_attribute_info, list) or isinstance(raw_attribute_info, tuple)\
                 , "raw_attribute_info must be a list or tuple"
 
         # Initialize form
         super(ClassifyLayerForm, self).__init__(*args, **kwargs)
 
-        # Initialize the "layer_name" field
+        # Initialize the "layer_name" and "data_source_type" fields
         self.fields['layer_name'].initial = layer_name
+        self.fields['data_source_type'].initial = data_source_type
 
         # Format attribute information
         attribute_choices = ClassifyLayerForm.format_attribute_choices_for_form(raw_attribute_info)

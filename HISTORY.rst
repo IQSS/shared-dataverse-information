@@ -3,6 +3,10 @@
 Release History
 ---------------
 
+0.4.8 (2016-03-07)
+++++++++++++++++++
+- Add data_source_type to ClassifyLayerForm
+
 0.4.7 (2016-02-29)
 ++++++++++++++++++
 - If it appears, remove "_unnamed" attribute from list of classification choices
