@@ -3,6 +3,10 @@
 Release History
 ---------------
 
+0.4.9 (2017-01-12)
+++++++++++++++++++
+- ClassifyLayerForm.  Add "Select..." as first form choice
+
 0.4.8 (2016-03-07)
 ++++++++++++++++++
 - Add data_source_type to ClassifyLayerForm

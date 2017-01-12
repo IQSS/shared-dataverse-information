@@ -17,10 +17,16 @@ from shared_dataverse_information.layer_classification.models import Classificat
 from shared_dataverse_information.worldmap_api_helper.url_helper import CLASSIFY_LAYER_API_PATH
 from shared_dataverse_information.layer_classification.classify_format_helper import format_layer_name_for_classification
 
-CLASSIFY_METHOD_CHOICES = [ (x.id, x.display_name) for x in ClassificationMethod.objects.filter(active=True) ]
-CLASSIFY_STRING_METHOD_CHOICES = [ (x.id, x.display_name) for x in ClassificationMethod.objects.filter(active=True, is_string_usable=True) ]
+INITIAL_SELECT_CHOICE = ('', 'Select...')
 
-COLOR_RAMP_CHOICES = [ (x.id, x.display_name) for x in ColorRamp.objects.filter(active=True) ]
+CLASSIFY_METHOD_CHOICES = [INITIAL_SELECT_CHOICE] +\
+    [ (x.id, x.display_name) for x in ClassificationMethod.objects.filter(active=True) ]
+
+CLASSIFY_STRING_METHOD_CHOICES = [INITIAL_SELECT_CHOICE] +\
+    [ (x.id, x.display_name) for x in ClassificationMethod.objects.filter(active=True, is_string_usable=True) ]
+
+COLOR_RAMP_CHOICES =  [INITIAL_SELECT_CHOICE] +\
+    [ (x.id, x.display_name) for x in ColorRamp.objects.filter(active=True) ]
 
 ATTRIBUTE_VALUE_DELIMITER = '|'
 FIELD_CSS_ATTRS = {'class':'form-control input-sm'}
@@ -100,7 +106,7 @@ class ClassifyLayerForm(forms.Form):
         if attr_info is None or len(attr_info) == 0:
             return [('-1', 'Information not found')]
 
-        choice_tuples = []
+        choice_tuples = [INITIAL_SELECT_CHOICE]
 
         for x in attr_info:
             # (1) Make sure everything is a dict

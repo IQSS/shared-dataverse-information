@@ -34,7 +34,6 @@ KEY_MAPPING_FOR_DATAVERSE_API = { 'worldmap_username' : 'worldmapUsername',
                                 }
 DATAVERSE_REQUIRED_KEYS = KEY_MAPPING_FOR_DATAVERSE_API.values()
 
-
 class MapLayerMetadata(models.Model):
     """
     Map layer metadata from Worldmap  stored in Dataverse
@@ -46,7 +45,7 @@ class MapLayerMetadata(models.Model):
     embed_map_link = models.URLField(max_length=255)
     #datafile_id = models.IntegerField(default=-1, help_text='id in database')
 
-    llbbox = models.CharField('Lat/Lng bounding box', max_length=255)
+    llbbox = models.CharField('Lat/Lng bounding box', max_length=255, blank=True)
     attribute_info = models.TextField('attribute names|types|display names')
     download_links = models.TextField('download data links', blank=True)
     map_image_link = models.TextField('map image link--sometimes exceeds 255 chars')
