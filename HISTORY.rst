@@ -3,6 +3,10 @@
 Release History
 ---------------
 
+0.4.91 (2017-01-13)
+++++++++++++++++++
+- ClassifyLayerForm.  Label update.
+
 0.4.9 (2017-01-12)
 ++++++++++++++++++
 - ClassifyLayerForm.  Add "Select..." as first form choice

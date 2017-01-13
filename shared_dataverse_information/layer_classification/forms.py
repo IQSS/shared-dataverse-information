@@ -46,11 +46,11 @@ class ClassifyLayerForm(forms.Form):
     attribute = forms.ChoiceField(choices=[(-1, 'Error: no choices available')]\
                                     , widget=forms.Select(attrs=FIELD_CSS_ATTRS)\
                                     )
-    method = forms.ChoiceField(label='Classification method'\
+    method = forms.ChoiceField(label='Classification Method'\
                                 , choices=CLASSIFY_METHOD_CHOICES\
                                 , widget=forms.Select(attrs=FIELD_CSS_ATTRS)\
                                 )
-    intervals = forms.IntegerField(label='No. of intervals', initial=5, widget=forms.NumberInput(attrs=FIELD_CSS_ATTRS))
+    intervals = forms.IntegerField(label='Intervals', initial=5, widget=forms.NumberInput(attrs=FIELD_CSS_ATTRS))
     ramp = forms.ChoiceField(label='Colors'\
                                 , choices=COLOR_RAMP_CHOICES\
                                 , widget=forms.Select(attrs=FIELD_CSS_ATTRS)\
