@@ -23,7 +23,7 @@ TABULAR_TYPES = ('CONTENT_TYPE_TAB_DELIMITED' \
 class DataverseInfo(models.Model):
     """
     If a map layer is created using a dataverse file, this objects contains Dataverse specific information regarding that file.
-    
+
     In addition to supplying metadata, it can also be used to identify which Layers were created using Dataverse files.
     """
     #-------------------------
@@ -38,20 +38,20 @@ class DataverseInfo(models.Model):
     #-------------------------
     return_to_dataverse_url = models.URLField(max_length=255, blank=True)
     datafile_download_url = models.URLField(max_length=255)
-    
+
     #-------------------------
     # dataverse info
     #-------------------------
     dataverse_installation_name = models.CharField(max_length=255, default='Harvard Dataverse', help_text='url to Harvard Dataverse, Odum Institute Dataverse, etc')
     dataverse_id = models.IntegerField(default=-1, help_text='id in database')
     dataverse_name = models.CharField(max_length=255, db_index=True)
-    dataverse_description = models.TextField(blank=True) 
-    
+    dataverse_description = models.TextField(blank=True)
+
     #-------------------------
     # dataset info
     #-------------------------
-    dataset_id = models.IntegerField(default=-1, help_text='id in database')  # for API calls.  
-    
+    dataset_id = models.IntegerField(default=-1, help_text='id in database')  # for API calls.
+
     #-------------------------
     # dataset version info
     #-------------------------
@@ -59,33 +59,32 @@ class DataverseInfo(models.Model):
     dataset_semantic_version = models.CharField(max_length=25, help_text='example: "DRAFT",  "1.2", "2.3", etc', blank=True)  # for API calls.
     dataset_name = models.CharField(max_length=255, blank=True)  # for display
     dataset_citation = models.CharField(max_length=255)
-    dataset_description = models.TextField(blank=True) 
-    dataset_is_public = models.BooleanField()
+    dataset_description = models.TextField(blank=True)
+    dataset_is_public = models.BooleanField(default=False)
 
     #-------------------------
     # datafile info
     #-------------------------
-    datafile_id = models.IntegerField(default=-1, help_text='id in database', db_index=True)  # for API calls.  
-    datafile_label = models.CharField(max_length=255, help_text='original file name')  
-    
-    datafile_expected_md5_checksum = models.CharField(max_length=100)  
+    datafile_id = models.IntegerField(default=-1, help_text='id in database', db_index=True)  # for API calls.
+    datafile_label = models.CharField(max_length=255, help_text='original file name')
+
+    datafile_expected_md5_checksum = models.CharField(max_length=100)
     datafile_filesize = models.IntegerField(help_text='in bytes')
     datafile_content_type = models.CharField(max_length=255)
     datafile_create_datetime = models.DateTimeField()#blank=True, null=True)
-            
+
     #-------------------------
     # timestamps
     #-------------------------
-    created = models.DateTimeField(auto_now_add=True) 
+    created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    
-    
-    
+
+
+
     def __unicode__(self):
         return '%s (%s -> %s)' % (self.datafile_label, self.dataverse_name, self.dataset_name)
-        
+
     class Meta:
         abstract = True
         ordering = ('-modified',  )
         verbose_name_plural = 'Dataverse Info'
-    

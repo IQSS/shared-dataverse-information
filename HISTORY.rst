@@ -3,6 +3,10 @@
 Release History
 ---------------
 
+0.5 (2017-01-27)
+++++++++++++++++++
+- Added default for DataverseInfo.dataset_is_public
+
 0.4.91 (2017-01-13)
 ++++++++++++++++++
 - ClassifyLayerForm.  Label update.
