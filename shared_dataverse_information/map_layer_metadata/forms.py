@@ -16,6 +16,7 @@ class MapLayerMetadataValidationForm(forms.ModelForm):
 
     class Meta:
         model = MapLayerMetadata
+        fields = '__all__'
         widgets = {  'dataverse_description': forms.Textarea(attrs={'rows': 2, 'cols':70})\
                     , 'dataset_description': forms.Textarea(attrs={'rows': 2, 'cols':70})\
                # , 'name': forms.TextInput(attrs={'size':20})

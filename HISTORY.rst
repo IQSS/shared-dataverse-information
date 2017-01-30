@@ -3,6 +3,12 @@
 Release History
 ---------------
 
+0.5.1 (2017-01-30)
+++++++++++++++++++
+- Upgrading Django, from 1.6 to 1.10
+- Add "fields" attribute to forms: MapLayerMetadataValidationForm, ShapefileImportDataForm, ClassifyRequestDataForm
+
+
 0.5 (2017-01-27)
 ++++++++++++++++++
 - Added default for DataverseInfo.dataset_is_public

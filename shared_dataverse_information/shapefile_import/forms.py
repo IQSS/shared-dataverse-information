@@ -10,6 +10,7 @@ class ShapefileImportDataForm(forms.ModelForm):
 
     class Meta:
         model = ShapefileImportData
+        fields = '__all__'
 
 '''
 # Original
