@@ -3,6 +3,10 @@
 Release History
 ---------------
 
+0.5.2 (2017-02-03)
+++++++++++++++++++
+- Add migrations for the layer_classification
+
 0.5.1 (2017-01-30)
 ++++++++++++++++++
 - Upgrading Django, from 1.6 to 1.10
