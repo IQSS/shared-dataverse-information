@@ -3,10 +3,13 @@
 Release History
 ---------------
 
+0.5.3 (2017-02-03)
+++++++++++++++++++
+- Change Django requirements to >=1.6
+
 0.5.2 (2017-02-03)
 ++++++++++++++++++
 - Add migrations for the layer_classification
-- Change Django requirements to >=1.6
 
 0.5.1 (2017-01-30)
 ++++++++++++++++++
