@@ -3,6 +3,10 @@
 Release History
 ---------------
 
+0.5.4 (2017-02-03)
+++++++++++++++++++
+- Update ClassifyLayerForm so that initial queryset-created choices work with Django 1.9+ migrations
+
 0.5.3 (2017-02-03)
 ++++++++++++++++++
 - Change Django requirements to >=1.6
