@@ -1,6 +1,7 @@
 from django import forms
 
 from .models import ShapefileImportData
+from shared_dataverse_information.shared_form_util.version_help import can_use_fields_all
 
 
 class ShapefileImportDataForm(forms.ModelForm):
@@ -10,7 +11,8 @@ class ShapefileImportDataForm(forms.ModelForm):
 
     class Meta:
         model = ShapefileImportData
-        fields = '__all__'
+        if can_use_fields_all():
+            fields = '__all__'
 
 '''
 # Original

@@ -3,6 +3,11 @@
 Release History
 ---------------
 
+0.5.5 (2017-02-24)
+++++++++++++++++++
+- Added "can_use_fields_all"
+- For model forms, all fields are often used.  In Django 1.4, no params need to be specified.  In later versions, need to specify the META param: fields = '__all__''
+
 0.5.4 (2017-02-03)
 ++++++++++++++++++
 - Update ClassifyLayerForm so that initial queryset-created choices work with Django 1.9+ migrations

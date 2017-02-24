@@ -1,9 +1,12 @@
 import re
 
+
 from django import forms
 import json
+from django.utils.translation import ugettext_lazy as _
 from .models import MapLayerMetadata, WORLDMAP_SERVER_URL_BASE, KEY_MAPPING_FOR_DATAVERSE_API
 from .form_helper import format_to_len255
+from shared_dataverse_information.shared_form_util.version_help import can_use_fields_all
 
 class MapLayerMetadataValidationForm(forms.ModelForm):
 
@@ -16,7 +19,9 @@ class MapLayerMetadataValidationForm(forms.ModelForm):
 
     class Meta:
         model = MapLayerMetadata
-        fields = '__all__'
+        if can_use_fields_all():
+            fields = '__all__'
+
         widgets = {  'dataverse_description': forms.Textarea(attrs={'rows': 2, 'cols':70})\
                     , 'dataset_description': forms.Textarea(attrs={'rows': 2, 'cols':70})\
                # , 'name': forms.TextInput(attrs={'size':20})
