@@ -3,6 +3,11 @@
 Release History
 ---------------
 
+0.5.6 (2017-04-14)
+++++++++++++++++++
+- Added field to Dataverse Info: datafile_is_restricted = models.BooleanField()
+- Changed field in DataverseInfo: dataset_citation was CharField, now TextField
+
 0.5.5 (2017-02-24)
 ++++++++++++++++++
 - Added "can_use_fields_all"

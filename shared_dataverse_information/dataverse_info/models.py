@@ -58,7 +58,7 @@ class DataverseInfo(models.Model):
     dataset_version_id = models.IntegerField(default=-1, help_text='id in database')  # for API calls.
     dataset_semantic_version = models.CharField(max_length=25, help_text='example: "DRAFT",  "1.2", "2.3", etc', blank=True)  # for API calls.
     dataset_name = models.CharField(max_length=255, blank=True)  # for display
-    dataset_citation = models.CharField(max_length=255)
+    dataset_citation = models.TextField()
     dataset_description = models.TextField(blank=True)
     dataset_is_public = models.BooleanField(default=False)
 
@@ -72,6 +72,11 @@ class DataverseInfo(models.Model):
     datafile_filesize = models.IntegerField(help_text='in bytes')
     datafile_content_type = models.CharField(max_length=255)
     datafile_create_datetime = models.DateTimeField()#blank=True, null=True)
+
+    # Note: restricted files should not be mapped.
+    # This field is specifically used when geoconnect is
+    # asked to delete a file that has ~become~ restricted
+    datafile_is_restricted = models.BooleanField(default=False)
 
     #-------------------------
     # timestamps

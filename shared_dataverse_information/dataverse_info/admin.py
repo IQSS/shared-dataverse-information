@@ -7,28 +7,29 @@ from .forms import DataverseInfoValidationForm
 
 class DataverseInfoAdmin(admin.ModelAdmin):
     class Meta:
-        
+
         abstract=True
-        
+
     form = DataverseInfoValidationForm
-    
+
     save_on_top = True
     search_fields = ['dv_username',  'datafile_label','dataset_name', 'dataverse_name',]# 'dv_file']
-    list_display = ['datafile_id', 'dv_username',  'datafile_label', 'dataset_name', 'dataverse_name', 'modified']  # 'dv_file', 
-    list_filter = [ 'dataset_is_public', 'dv_username', 'dataverse_name', 'dataset_name']   
-    readonly_fields = ['modified', 'created'\
-                    , 'dataverse_id', 'dataset_id', 'datafile_id'\
-                    , 'datafile_filesize', 'datafile_content_type', 'datafile_expected_md5_checksum'\
-                    , 'datafile_create_datetime'\
-                    #, 'dataset_is_public'\
-                    ]
+    list_display = ['datafile_id', 'dv_username',  'datafile_label', 'dataset_name', 'dataverse_name', 'modified']  # 'dv_file',
+    list_filter = [ 'dataset_is_public', 'dv_username', 'dataverse_name', 'dataset_name']
+    readonly_fields = ['modified', 'created',
+                       'dataverse_id', 'dataset_id', 'datafile_id',
+                       'datafile_filesize', 'datafile_content_type',
+                       'datafile_is_restricted', 'datafile_expected_md5_checksum',
+                       'datafile_create_datetime']
+
     fieldsets = [
          ('DataFile Info', {
-                  'fields': ( 'dataset_is_public'\
-                  , ('datafile_label', 'datafile_id',  )\
-                  , ('datafile_filesize', 'datafile_content_type')\
-                  , ('datafile_create_datetime', 'datafile_expected_md5_checksum',)\
-                  )
+            'fields': ('dataset_is_public',
+                       ('datafile_label', 'datafile_id',  ),
+                       ('datafile_filesize', 'datafile_content_type',
+                        'datafile_is_restricted'),
+                       ('datafile_create_datetime',
+                        'datafile_expected_md5_checksum',))
               }),
          #('Retrieved File', {
          #            'fields': ('dv_file', 'gis_scratch_work_directory' )
@@ -51,11 +52,8 @@ class DataverseInfoAdmin(admin.ModelAdmin):
            }),
            #('Session Info', {
            #       'fields': ('dv_session_token', )
-           #}),          
+           #}),
            ('Read-Only Info', {
                'fields': (('modified', 'created') )
            }),
        ]
-       
-
-
