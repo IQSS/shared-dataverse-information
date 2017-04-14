@@ -3,6 +3,10 @@
 Release History
 ---------------
 
+0.5.7 (2017-04-14)
+++++++++++++++++++
+- Fix to requirements file.  WorldMap is django 1.4.13; geoconnect is 1.10.7+
+
 0.5.6 (2017-04-14)
 ++++++++++++++++++
 - Added field to Dataverse Info: datafile_is_restricted = models.BooleanField()
