@@ -79,7 +79,7 @@ setup(
     #install_requires=['peppercorn'],
     install_requires=[
        'Django>=1.4,<1.7',
-       'requests==2.3.0',
+       'requests==2.20.0',
     ],
 
     # List additional groups of dependencies here (e.g. development dependencies).
